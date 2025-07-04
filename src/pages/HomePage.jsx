@@ -1,4 +1,5 @@
 import Clients from "../components/Clients";
+import FeaturedPosts from "../components/FeaturedPosts";
 import FeaturedProducts from "../components/FeaturedProducts";
 import ProductCards from "../components/ProductsCards";
 import Services from "../components/Services";
@@ -12,6 +13,7 @@ export default function HomePage() {
             <ProductCards />
             <FeaturedProducts />
             <Services />
+            <FeaturedPosts />
         </>
     );
 }
