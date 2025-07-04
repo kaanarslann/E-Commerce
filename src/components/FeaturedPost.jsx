@@ -18,10 +18,10 @@ export default function FeaturedPost() {
                     <h4 className="text-[#252B42] text-xl font-normal leading-[1.875rem]">Loudest à la Madison #1 (L'integral)</h4>
                     <p className="text-[#737373] text-sm font-normal leading-5 w-[17.5rem]">We focus on ergonomics and meeting you where you work. It's only a keystroke away.</p>
                     <div className="info py-[0.938rem] flex justify-between">
-                        <span className="text-[#737373] text-xs font-normal leading-4 flex items-center gap-1.5"><AlarmClock /> 22 April 2021</span>
-                        <span className="text-[#737373] text-xs font-normal leading-4 flex items-center gap-1.5"><ChartArea /> 10 Comments</span>
+                        <span className="text-[#737373] text-xs font-normal leading-4 flex items-center gap-1.5"><AlarmClock color="#23A6F0" size={16}/> 22 April 2021</span>
+                        <span className="text-[#737373] text-xs font-normal leading-4 flex items-center gap-1.5"><ChartArea color="#23856D" size={16}/> 10 Comments</span>
                     </div>
-                    <span className="text-[#737373] text-sm font-bold leading-6 flex items-center gap-1.5">Learn More <ChevronRight /></span>
+                    <span className="text-[#737373] text-sm font-bold leading-6 flex items-center gap-1.5 hover:cursor-pointer">Learn More <ChevronRight /></span>
                 </div>
             </section>
             <section className="featured-post desktop hidden md:flex">
@@ -71,7 +71,7 @@ export default function FeaturedPost() {
                             <span className="text-[#737373] text-xs font-normal leading-4 items-center">Progress</span>
                         </div>
                     </div>
-                    <span className="text-[#23A6F0] border border-[#23A6F0] rounded-[2.313rem] w-[8.821rem] h-11 text-sm font-bold leading-6 px-5 py-2.5 flex items-center">Learn More <ChevronRight /></span>
+                    <span className="text-[#23A6F0] border border-[#23A6F0] rounded-[2.313rem] w-[8.821rem] h-11 text-sm font-bold leading-6 px-5 py-2.5 flex items-center hover:cursor-pointer">Learn More <ChevronRight /></span>
                 </div>
             </section>
         </>
