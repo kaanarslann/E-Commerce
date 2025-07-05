@@ -1,15 +1,21 @@
 import {Link} from "react-router-dom";
+import { useState } from "react";
 
 import { User, Search, ShoppingCart, Menu, Phone, Mail, Instagram, Youtube, Facebook, Twitter, Heart } from 'lucide-react';
-import hero from "../assets/hero.png"
-
 
 export default function Header() {
+    
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toogleNavbar = () => {
+        setIsOpen(!isOpen);
+    };
+    
     return (
         <header className="header">
             <section className="header-navbar">
                 <div className="mobile mt-[2.388rem] block md:hidden">
-                    <div className="upper flex justify-between items-center px-[2.375rem]">
+                    <div className="upper flex justify-between items-center px-[2.375rem] mb-2.5">
                         <div className="logo">
                             <span className="text-2xl font-bold leading-8 text-[#252B42]">Bandage</span>
                         </div>
@@ -17,17 +23,17 @@ export default function Header() {
                             <User />
                             <Search />
                             <ShoppingCart />
-                            <Menu />
+                            <button onClick={toogleNavbar}><Menu /></button>
                         </div>
                     </div>
-                    <div className="header-navbar">
+                    {isOpen && (<div className="header-navbar">
                         <nav className="navbar flex flex-col items-center gap-[1.875rem] text-3xl font-normal leading-[2.813rem] text-[#737373] my-[7.875rem]">
                             <a href="/">Home</a>
                             <a href="/">Product</a>
                             <a href="/">Pricing</a>
                             <a href="/">Contact</a>
                         </nav>
-                    </div>
+                    </div>)}
                 </div>
                 <div className="desktop hidden md:block">
                     <div className="header-topbar bg-[#252B42] text-white px-6 flex justify-between items-center py-2.5 text-sm font-bold leading-6">
@@ -76,21 +82,6 @@ export default function Header() {
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section className="hero bg-linear-to-r from-[#96E9FB] to-[#ABECD6] pt-20 rounded-[1.25rem] mx-5 md:mx-[3.688rem] flex flex-col md:flex-row md:mt-5">
-                <div className="hero-title flex flex-col items-center gap-8 md:gap-[1.875rem] md:ml-[12.875rem] md:justify-center md:items-start">
-                    <span className="text-[#2A7CC7] text-base font-bold leading-6">SUMMER 2020</span>
-                    <div className="text-[#252B42] text-[2.5rem] md:text-[3.625rem] font-bold leading-[3.125rem] md:leading-20 flex flex-col items-center md:flex-row md:gap-4">
-                        <span>NEW</span>
-                        <span>COLLECTION</span>
-                    </div>
-                    <span className="text-[#737373] text-xl leading-[1.875rem] font-normal text-center w-2xs h-[5.625rem] block md:hidden">We know how large objects<br/> will act, but things on a<br/> small scale.</span>
-                    <span className="text-[#737373] text-xl leading-[1.875rem] font-normal hidden md:block">We know how large objects will act,<br/> but things on a small scale.</span>
-                    <button className="w-[13.813rem] h-[3.875rem] bg-[#23A6F0] text-white text-2xl font-bold leading-8 rounded-[0.313rem] hover:cursor-pointer">SHOP NOW</button>
-                </div>
-                <div className="hero-img">
-                    <img className="" src={hero} />
                 </div>
             </section>
         </header>
