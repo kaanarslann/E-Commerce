@@ -12,7 +12,7 @@ export default function Header() {
     };
     
     return (
-        <header className="header">
+        <header className="header md:mb-5">
             <section className="header-navbar">
                 <div className="mobile mt-[2.388rem] block md:hidden">
                     <div className="upper flex justify-between items-center px-[2.375rem] mb-2.5">
