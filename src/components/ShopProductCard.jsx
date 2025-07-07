@@ -1,8 +1,8 @@
 import ShopProductImage from "../assets/shopproduct.jpg";
 
-export default function ShopProductCard() {
+export default function ShopProductCard({onClick}) {
     return (
-        <section className="shop-product-card flex flex-col w-[21.75rem] h-[38.438rem] md:w-[15rem] md:h-[30.5rem]">
+        <section className="shop-product-card flex flex-col w-[21.75rem] h-[38.438rem] md:w-[15rem] md:h-[30.5rem] hover:cursor-pointer" onClick={onClick}>
             <div className="shop-product-image flex justify-center">
                 <img src={ShopProductImage}/>
             </div>

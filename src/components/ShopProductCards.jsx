@@ -1,7 +1,15 @@
+import {useHistory} from "react-router-dom";
 import { Grip, SlidersHorizontal } from "lucide-react"
 import ShopProductCard from "./ShopProductCard"
 
 export default function ShopProductCards() {
+    
+    const history = useHistory();
+
+    const handleClick = () => {
+        history.push("/product");
+    }
+    
     return (
         <section>
             <div className="filters flex flex-col md:flex-row md:justify-between py-6 md:px-[12rem] gap-6 items-center">
@@ -27,7 +35,7 @@ export default function ShopProductCards() {
             </div>
             <div className="shop-product-card-container flex flex-col md:gap-12 md:py-12 items-center">
                 <div className="shop-product-cards flex flex-col gap-[1.875rem] md:flex-row md:gap-[1.875rem]">
-                    <ShopProductCard />
+                    <ShopProductCard onClick={handleClick}/>
                     <ShopProductCard />
                     <ShopProductCard />
                     <ShopProductCard />
