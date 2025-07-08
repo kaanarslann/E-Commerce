@@ -1,11 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Footer() {
+    
+    const location = useLocation();
+
+    const bgColor = location.pathname == "/" ? "bg-[#FAFAFA]" : "bg-white";
+    
     return (
         <footer className="footer mt-10">
-            <section className="socials bg-[#FAFAFA] flex flex-col py-10 px-28 gap-8 md:flex-row md:justify-between md:px-60">
+            <section className={`socials ${bgColor} flex flex-col py-10 px-28 gap-8 md:flex-row md:justify-between md:px-60`}>
                 <div className="logo">
                     <h3 className="text-2xl font-bold leading-8 text-[#252B42]">Bandage</h3>
                 </div>

@@ -53,7 +53,7 @@ export default function ShopProductCards() {
                     <ShopProductCard />
                 </div>
             </div>
-            <div className="page-buttons flex justify-center">
+            <div className="page-buttons flex justify-center mb-6">
                 <div className="buttons rounded-[0.421rem] w-[19.563rem] h-[4.625rem] text-sm font-bold leading-6 flex items-center">
                     <button className="bg-[#F3F3F3] text-[#BDBDBD] p-[1.563rem] rounded-tl-[0.421rem] rounded-bl-[0.421rem] border border-y-[#BDBDBD] hover:cursor-pointer">First</button>
                     <span className="text-[#23A6F0] py-[1.563rem] px-5 border border-x-[#E9E9E9] border-y-[#BDBDBD] hover:cursor-pointer">1</span>
