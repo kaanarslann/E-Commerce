@@ -12,7 +12,7 @@ export default function ShopProductCards() {
     
     return (
         <section>
-            <div className="filters flex flex-col md:flex-row md:justify-between py-6 md:px-[12rem] gap-6 items-center">
+            <div className="filters flex flex-col md:flex-row md:justify-between py-6 md:px-[14.5rem] gap-6 items-center">
                 <div className="info">
                     <h6 className="text-[#737373] text-sm font-bold leading-6">Showing all 12 results</h6>
                 </div>
@@ -36,21 +36,21 @@ export default function ShopProductCards() {
             <div className="shop-product-card-container flex flex-col md:gap-12 md:py-12 items-center">
                 <div className="shop-product-cards flex flex-col gap-[1.875rem] md:flex-row md:gap-[1.875rem]">
                     <ShopProductCard onClick={handleClick}/>
-                    <ShopProductCard />
-                    <ShopProductCard />
-                    <ShopProductCard />
+                    <ShopProductCard onClick={handleClick}/>
+                    <ShopProductCard onClick={handleClick}/>
+                    <ShopProductCard onClick={handleClick}/>
                 </div>
                 <div className="shop-product-cards md:flex gap-[1.875rem] md:flex-row md:gap-[1.875rem] hidden">
-                    <ShopProductCard />
-                    <ShopProductCard />
-                    <ShopProductCard />
-                    <ShopProductCard />
+                    <ShopProductCard onClick={handleClick}/>
+                    <ShopProductCard onClick={handleClick}/>
+                    <ShopProductCard onClick={handleClick}/>
+                    <ShopProductCard onClick={handleClick}/>
                 </div>
                 <div className="shop-product-cards md:flex flex-col gap-[1.875rem] md:flex-row md:gap-[1.875rem] hidden">
-                    <ShopProductCard />
-                    <ShopProductCard />
-                    <ShopProductCard />
-                    <ShopProductCard />
+                    <ShopProductCard onClick={handleClick}/>
+                    <ShopProductCard onClick={handleClick}/>
+                    <ShopProductCard onClick={handleClick}/>
+                    <ShopProductCard onClick={handleClick}/>
                 </div>
             </div>
             <div className="page-buttons flex justify-center mb-6">

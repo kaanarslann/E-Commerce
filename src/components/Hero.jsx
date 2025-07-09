@@ -4,7 +4,7 @@ import heroMobile from "../assets/heromobile.png"
 export default function Hero() {
     return (
         <section className="hero bg-linear-to-r from-[#96E9FB] to-[#ABECD6] pt-20 rounded-[1.25rem] mx-5 md:mx-[3.688rem] flex flex-col md:flex-row md:mt-5 md:h-[38.688rem]">
-            <div className="hero-title flex flex-col items-center gap-8 md:gap-[1.875rem] md:ml-[12.875rem] md:justify-center md:items-start">
+            <div className="hero-title flex flex-col items-center gap-8 md:gap-[1.875rem] md:ml-[12.875rem] md:mt-18 md:items-start">
                 <span className="text-[#2A7CC7] text-base font-bold leading-6">SUMMER 2020</span>
                 <div className="text-[#252B42] text-[2.5rem] md:text-[3.625rem] font-bold leading-[3.125rem] md:leading-20 flex flex-col items-center md:flex-row md:gap-4">
                     <span>NEW</span>

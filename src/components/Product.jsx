@@ -27,7 +27,7 @@ export default function Product() {
                 <Link to="/shop" className="text-[#737373]">Shop</Link>
             </div>
             <div className="product flex flex-col items-center gap-7 md:flex-row md:items-start">
-                <div className="product-images flex flex-col gap-8">
+                <div className="product-images flex flex-col gap-8 w-[21.75rem] h-[24.625rem] md:w-full md:h-full">
                     <div className="image-main w-[21.75rem] h-[17.313rem] md:w-[31.625rem] md:h-[28.125rem] bg-center bg-cover relative" style={{backgroundImage: `url(${mainImage})`}}>
                         <button onClick={handleImage} className="absolute left-6 top-[7.375rem] md:top-[16.125rem] hover:cursor-pointer"><ChevronLeft color="#FFFFFF" size={44}/></button>
                         <button onClick={handleImage} className="absolute right-6 top-[7.375rem] md:top-[16.125rem] hover:cursor-pointer"><ChevronRight color="#FFFFFF" size={44}/></button>
@@ -37,7 +37,7 @@ export default function Product() {
                         <img src={productMain2} className="w-[6.25rem] object-center object-cover"/>
                     </div>
                 </div>
-                <div className="product-texts flex flex-col gap-5 mx-26">
+                <div className="product-texts flex flex-col gap-5 mx-26 pl-5 md:pl-0 w-[21.75rem] h-[29.438rem] md:w-full md:h-full">
                     <h4 className="text-[#252B42] text-xl leading-[1.875rem] md:mt-2.5">Floating Phone</h4>
                     <div className="ratings flex gap-2.5">
                         <div className="star-rating text-[#F3CD03] flex gap-1.5">

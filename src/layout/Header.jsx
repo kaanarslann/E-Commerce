@@ -28,10 +28,10 @@ export default function Header() {
                     </div>
                     {isOpen && (<div className="header-navbar">
                         <nav className="navbar flex flex-col items-center gap-[1.875rem] text-3xl font-normal leading-[2.813rem] text-[#737373] my-[7.875rem]">
-                            <a href="/">Home</a>
-                            <a href="/">Product</a>
-                            <a href="/">Pricing</a>
-                            <a href="/">Contact</a>
+                            <Link to="/">Home</Link>
+                            <Link to="/">Product</Link>
+                            <Link to="/">Pricing</Link>
+                            <Link to="/">Contact</Link>
                         </nav>
                     </div>)}
                 </div>
@@ -64,12 +64,12 @@ export default function Header() {
                         </div>
                         <div className="header-navbar flex grow justify-between items-center ml-30">
                             <nav className="navbar flex gap-[0.938rem] text-sm font-bold leading-6 text-[#737373]">
-                                <a href="/">Home</a>
-                                <a href="/">Shop</a>
-                                <a href="/">About</a>
-                                <a href="/">Blog</a>
-                                <a href="/">Contact</a>
-                                <a href="/">Pages</a>
+                                <Link to="/">Home</Link>
+                                <Link to="/shop">Shop</Link>
+                                <Link to="/">About</Link>
+                                <Link to="/">Blog</Link>
+                                <Link to="/">Contact</Link>
+                                <Link to="/">Pages</Link>
                             </nav>
                             <div className="tools flex text-[#23A6F0] text-sm font-bold leading-6 gap-3.5">
                                 <div className="login flex gap-[0.313rem] mr-3">
