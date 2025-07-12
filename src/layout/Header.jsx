@@ -29,9 +29,9 @@ export default function Header() {
                     {isOpen && (<div className="header-navbar">
                         <nav className="navbar flex flex-col items-center gap-[1.875rem] text-3xl font-normal leading-[2.813rem] text-[#737373] my-[7.875rem]">
                             <Link to="/">Home</Link>
-                            <Link to="/">Product</Link>
+                            <Link to="/shop">Product</Link>
                             <Link to="/">Pricing</Link>
-                            <Link to="/">Contact</Link>
+                            <Link to="/contact">Contact</Link>
                         </nav>
                     </div>)}
                 </div>
@@ -68,7 +68,7 @@ export default function Header() {
                                 <Link to="/shop">Shop</Link>
                                 <Link to="/">About</Link>
                                 <Link to="/">Blog</Link>
-                                <Link to="/">Contact</Link>
+                                <Link to="/contact">Contact</Link>
                                 <Link to="/">Pages</Link>
                             </nav>
                             <div className="tools flex text-[#23A6F0] text-sm font-bold leading-6 gap-3.5">
