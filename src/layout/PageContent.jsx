@@ -4,6 +4,7 @@ import ShopPage from "../pages/ShopPage";
 import ProductDetail from "../pages/ProductDetail";
 import Contact from "../pages/Contact";
 import Team from "../pages/Team";
+import About from "../pages/About";
 
 export default function PageContent() {
     return (
@@ -23,6 +24,9 @@ export default function PageContent() {
                 </Route>
                 <Route path="/team">
                     <Team />
+                </Route>
+                <Route path="/about">
+                    <About />
                 </Route>
             </Switch>
         </div>
