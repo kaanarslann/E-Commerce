@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {useHistory} from "react-router-dom";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 
 export default function SignUp() {
     
     const [roles, setRoles] = useState([]);
-    const {register, handleSubmit, watch, formState: {errors, isValid}} = useForm({mode: "all"});
+    const {register, handleSubmit, setValue, watch, formState: {errors, isValid, touchedFields, isSubmitting}, trigger} = useForm({mode: "onTouched", reValidateMode: "onChange", shouldUnregister: true});
     const selectedRole = watch("role_id");
     const history = useHistory();
     
@@ -19,12 +21,20 @@ export default function SignUp() {
         axiosInstance.get("/roles")
         .then((response) => {
             setRoles(response.data);
+            const defaultRole = response.data.find(role => role.name == "Müşteri");
+            if (defaultRole) {
+                setValue("role_id", defaultRole.id);
+            }
         }).catch((error) => {
             console.error(error);
         })
     }, [])
 
-    const onSubmit = (data) => {
+    useEffect(() => {
+        trigger();
+    }, [selectedRole, trigger]);
+
+    const onSubmit = async (data) => {
         const roleId = Number(data.role_id);
         let payload;
         
@@ -49,20 +59,20 @@ export default function SignUp() {
                 role_id: roleId
             };
         }
-
-        axiosInstance.post("/signup", payload)
-        .then((response) => {
-            toast.success("You need to click link in email to activate your account!");
+        
+        try {
+            const response = await axiosInstance.post("/signup", payload);
+            toast.success(response.data.message);
             console.log(response);
 
             setTimeout(() => {
                 history.goBack();
             }, 3000);
-        }).catch((error) => {
+        } catch (error) {
             console.error("Error: ", error);
             console.log(payload);
             toast.error("An error has occured!");
-        })
+        }
     };
     
     return (
@@ -74,26 +84,26 @@ export default function SignUp() {
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
                     <div className="form-name flex flex-col">
                         <label htmlFor="name" className="text-lg leading-6">First Name</label>
-                        <input {...register("name", {required: "Please enter a name", minLength: 3})} id="name" type="text" placeholder="John" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem]"/>
+                        <input {...register("name", {required: "Please enter a name", minLength: 3})} id="name" type="text" placeholder="John" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
                     </div>
                     <div className="form-email flex flex-col">
                         <label htmlFor="email" className="text-lg leading-6">Email</label>
                         <input {...register("email", {required: "Please enter an email", pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                             message: "Invalid email address!"
-                        }})} id="email" type="email" placeholder="text@example.com" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem]"/>
-                        {errors.email && (
-                            <p>{errors.email.message}</p>
+                        }})} id="email" type="email" placeholder="text@example.com" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                        {errors.email && touchedFields.email && (
+                            <p className="w-2xs text-red-500 text-sm py-3">{errors.email.message}</p>
                         )}
                     </div>
                     <div className="form-password flex flex-col">
                         <label htmlFor="password" className="text-lg leading-6">Password</label>
                         <input {...register("password", {required: "Please enter a password", pattern: {
                             value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
-                            message: "Upper/lower case and special characters are required."
-                        }})} id="password" type="password" placeholder="Password" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem]"/>
-                        {errors.password && (
-                            <p>{errors.password.message}</p>
+                            message: "At least 8 characters including at least one upper/lower case and special characters are required."
+                        }})} id="password" type="password" placeholder="Password" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                        {errors.password && touchedFields.password && (
+                            <p className="w-2xs md:w-sm text-red-500 text-sm py-3">{errors.password.message}</p>
                         )}
                     </div>
                     <div className="form-password flex flex-col">
@@ -101,11 +111,11 @@ export default function SignUp() {
                         <input {...register("validatePass", {
                             required: "Please enter your password again",
                             validate: value => value == watch("password") || "Password does not match!"
-                        })} id="passValid" type="password" placeholder="Password again" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem]"/>
+                        })} id="passValid" type="password" placeholder="Password again" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
                     </div>
                     <div className="form-roles flex flex-col">
                         <label htmlFor="roles" className="text-lg leading-6">Role</label>
-                        <select {...register("role_id", {required: "Please select a role"})} id="roles" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem]">
+                        <select {...register("role_id", {required: "Please select a role"})} id="roles" value={selectedRole} className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]">
                             {roles.map(role => (
                                 <option key={role.id} value={role.id}>{role.name}</option>
                             ))}
@@ -115,18 +125,18 @@ export default function SignUp() {
                         <div className="form-store-info flex flex-col gap-5">
                             <div className="store-name flex flex-col">
                                 <label htmlFor="storeName" className="text-lg leading-6">Store Name</label>
-                                <input {...register("store_name", {required: "Please enter a store name", minLength: 3})} id="storeName" type="text" placeholder="ABC Store" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem]"/>
+                                <input {...register("store_name", {required: "Please enter a store name", minLength: 3})} id="storeName" type="text" placeholder="ABC Store" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
                             </div>
                             <div className="store-phone flex flex-col">
                                 <label htmlFor="storePhone" className="text-lg leading-6">Store Phone</label>
                                 <input {...register("store_phone", {required: "Please enter your phone number",
                                     pattern: {
-                                        value: /^(\+90|0)?5\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/,
+                                        value: /^(\+90|0)?5\d{9}$/,
                                         message: "Enter a valid Turkey phone number",
                                     }
-                                })} id="storePhone" type="text" placeholder="+901234567890" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem]"/>
-                                {errors.storePhone && (
-                            <p>{errors.storePhone.message}</p>
+                                })} id="storePhone" type="text" placeholder="+901234567890" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                                {errors.store_phone && touchedFields.store_phone && (
+                            <p className="w-2xs text-red-500 text-sm py-3">{errors.store_phone.message}</p>
                         )}
                             </div>
                             <div className="store-tax flex flex-col">
@@ -136,27 +146,29 @@ export default function SignUp() {
                                         value: /^T\d{4}V\d{6}$/,
                                         message: "Valid tax number format: TXXXXVXXXXXX",
                                     }
-                                })} id="storeTax" type="text" placeholder="TXXXXVXXXXXX" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem]"/>
-                                {errors.storeTax && (
-                            <p>{errors.storeTax.message}</p>
+                                })} id="storeTax" type="text" placeholder="TXXXXVXXXXXX" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                                {errors.store_tax_no && touchedFields.store_tax_no && (
+                            <p className="w-2xs text-red-500 text-sm py-3">{errors.store_tax_no.message}</p>
                         )}
                             </div>
                             <div className="store-bank flex flex-col">
                                 <label htmlFor="storeBank" className="text-lg leading-6">Store Bank Account</label>
                                 <input {...register("store_bank_account", {required: "Please enter your bank account",
                                     pattern: {
-                                        value: /^TR\d{2}[0-9A-Z]{5}\d{1,16}$/,
+                                        value: /^TR\d{24}$/,
                                         message: "Enter a valid IBAN",
                                     }
-                                })} id="storeBank" type="text" placeholder="IBAN" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem]"/>
-                                {errors.storeBank && (
-                            <p>{errors.storeBank.message}</p>
+                                })} id="storeBank" type="text" placeholder="IBAN" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                                {errors.store_bank_account && touchedFields.store_bank_account && (
+                            <p className="w-2xs text-red-500 text-sm py-3">{errors.store_bank_account.message}</p>
                         )}
                             </div>
                         </div>
                     )}
                     <div className="form-button flex justify-center pt-2">
-                        <button disabled={!isValid} type="submit" className="bg-[#23A6F0] text-white p-1.5 rounded w-[7rem] h-[3rem] hover:cursor-pointer">Submit</button>
+                        <button disabled={!isValid || isSubmitting} type="submit" className="bg-[#23A6F0] disabled:bg-blue-300 disabled:hover:cursor-not-allowed text-white p-1.5 rounded w-[7rem] h-[3rem] hover:cursor-pointer flex items-center justify-center gap-2">
+                            {isSubmitting ? (<FontAwesomeIcon icon={faCircleNotch} spin className="text-white text-lg" />) : ("Submit")}
+                        </button>
                     </div>
                 </form>
             </div>
