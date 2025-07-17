@@ -74,7 +74,7 @@ export default function Header() {
                             <div className="tools flex text-[#23A6F0] text-sm font-bold leading-6 gap-3.5">
                                 <div className="login flex gap-[0.313rem] mr-3">
                                     <User />
-                                    <span className="legin-text">Login / Register</span>
+                                    <Link to="/signup" className="login-text">Login / Register</Link>
                                 </div>
                                 <Search />
                                 <ShoppingCart />
