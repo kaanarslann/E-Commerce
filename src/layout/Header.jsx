@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import { User, Search, ShoppingCart, Menu, Phone, Mail, Instagram, Youtube, Facebook, Twitter, Heart } from 'lucide-react';
 
@@ -10,6 +11,8 @@ export default function Header() {
     const toogleNavbar = () => {
         setIsOpen(!isOpen);
     };
+
+    const user = useSelector((state) => state.client.user);
     
     return (
         <header className="header md:mb-5">
@@ -72,10 +75,16 @@ export default function Header() {
                                 <Link to="/">Pages</Link>
                             </nav>
                             <div className="tools flex text-[#23A6F0] text-sm font-bold leading-6 gap-3.5">
-                                <div className="login flex gap-[0.313rem] mr-3">
+                                {user ? (<div className="login flex gap-[0.313rem] mr-3">
                                     <User />
-                                    <Link to="/signup" className="login-text">Login / Register</Link>
-                                </div>
+                                    <span>Welcome, {user.user.name}</span>
+                                    <span className="hover: cursor-pointer">Log Out</span>
+                                </div>) : (<div className="login flex gap-[0.313rem] mr-3">
+                                    <User />
+                                    <Link to="/login" className="login-text">Login</Link>
+                                    <span>/</span>
+                                    <Link to="/signup" className="login-text">Register</Link>
+                                </div>)}
                                 <Search />
                                 <ShoppingCart />
                                 <Heart />
