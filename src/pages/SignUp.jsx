@@ -1,34 +1,34 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axiosInstance from "../utils/axiosInstance";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {useHistory} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getRoles } from "../store/thunks/clientThunks";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 
 export default function SignUp() {
     
-    const [roles, setRoles] = useState([]);
     const {register, handleSubmit, setValue, watch, formState: {errors, isValid, touchedFields, isSubmitting}, trigger} = useForm({mode: "onTouched", reValidateMode: "onChange", shouldUnregister: true});
     const selectedRole = watch("role_id");
     const history = useHistory();
+    const dispatch = useDispatch();
     
-    const axiosInstance = axios.create({
-        baseURL: "https://workintech-fe-ecommerce.onrender.com",
-    });
+    const roles = useSelector((state) => state.client.roles);
+    
 
     useEffect(() => {
-        axiosInstance.get("/roles")
-        .then((response) => {
-            setRoles(response.data);
-            const defaultRole = response.data.find(role => role.name == "Müşteri");
+        const fetchRoles = async () => {
+            const roles = await dispatch(getRoles());
+            const defaultRole = roles.find((role) => role.name === "Müşteri");
             if (defaultRole) {
                 setValue("role_id", defaultRole.id);
             }
-        }).catch((error) => {
-            console.error(error);
-        })
-    }, [])
+        };
+
+        fetchRoles();
+    }, [dispatch, setValue])
 
     useEffect(() => {
         trigger();
