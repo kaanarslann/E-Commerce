@@ -1,6 +1,8 @@
 import {Link} from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { logoutUser } from "../store/thunks/loginThunks";
+import { useDispatch } from "react-redux";
 
 import { User, Search, ShoppingCart, Menu, Phone, Mail, Instagram, Youtube, Facebook, Twitter, Heart } from 'lucide-react';
 
@@ -12,6 +14,12 @@ export default function Header() {
         setIsOpen(!isOpen);
     };
 
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(logoutUser());
+    };
+ 
     const user = useSelector((state) => state.client.user);
     
     return (
@@ -77,8 +85,8 @@ export default function Header() {
                             <div className="tools flex text-[#23A6F0] text-sm font-bold leading-6 gap-3.5">
                                 {user ? (<div className="login flex gap-[0.313rem] mr-3">
                                     <User />
-                                    <span>Welcome, {user.user.name}</span>
-                                    <span className="hover: cursor-pointer">Log Out</span>
+                                    <span>Welcome, {user.name}</span>
+                                    <span className="hover: cursor-pointer pl-2.5" onClick={handleLogout}>Log Out</span>
                                 </div>) : (<div className="login flex gap-[0.313rem] mr-3">
                                     <User />
                                     <Link to="/login" className="login-text">Login</Link>

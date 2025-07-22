@@ -6,12 +6,7 @@ export const loginUser = ({email, password, rememberMe}) => {
         try {
             const response = await axiosInstance.post("/login", {email, password});
             const {token, name, email: responseEmail, role_id} = response.data;
-            const payload = {
-                user: {name, email: responseEmail, role_id},
-                addressList: [],
-                creditCards: [],
-            };
-            dispatch(setUser(payload));
+            dispatch(setUser({name, responseEmail, role_id}, [], []));
 
             if(rememberMe) {
                 localStorage.setItem("token", token);
@@ -26,4 +21,10 @@ export const loginUser = ({email, password, rememberMe}) => {
             };
         }
     };
+};
+
+export const logoutUser = () => (dispatch) => {
+    dispatch(setUser(null));
+    localStorage.removeItem("token");
+    delete axiosInstance.defaults.headers.common["Authorization"];
 };
