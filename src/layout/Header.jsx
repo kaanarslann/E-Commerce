@@ -2,9 +2,11 @@ import {Link} from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { logoutUser } from "../store/thunks/loginThunks";
+import { getCategories } from "../store/thunks/productThunks";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
-import { User, Search, ShoppingCart, Menu, Phone, Mail, Instagram, Youtube, Facebook, Twitter, Heart } from 'lucide-react';
+import { User, Search, ShoppingCart, Menu, Phone, Mail, Instagram, Youtube, Facebook, Twitter, Heart, ChevronDown } from 'lucide-react';
 
 export default function Header() {
     
@@ -19,6 +21,12 @@ export default function Header() {
     const handleLogout = () => {
         dispatch(logoutUser());
     };
+
+    useEffect(() => {
+        dispatch(getCategories());
+    }, []);
+
+    const categories = useSelector((state) => state.product.categories);
  
     const user = useSelector((state) => state.client.user);
     
@@ -76,8 +84,31 @@ export default function Header() {
                         <div className="header-navbar flex grow justify-between items-center ml-30">
                             <nav className="navbar flex gap-[0.938rem] text-sm font-bold leading-6 text-[#737373]">
                                 <Link to="/">Home</Link>
-                                <Link to="/shop">Shop</Link>
-                                <Link to="/about">About</Link>
+                                <div className="navbar-dropdown flex gap-1.5">
+                                    <Link to="/shop">Shop</Link>
+                                    <div className="dropdown relative inline-block group">
+                                        <ChevronDown />
+                                        <div className="dropdown-content absolute hidden group-hover:flex gap-20 p-5 bg-white shadow-lg shadow-gray-400">
+                                            <div className="category-women">
+                                                <span className="text-[#252B42]">Kadın</span>
+                                                <div className="mt-5 flex flex-col gap-2">
+                                                    {categories.map((category) => (
+                                                        category.gender == "k" && (<Link key={category.id} to={`shop/kadin/${category.title}/${category.id}`}>{category.title}</Link>)
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <div className="category-men">
+                                                <span className="text-[#252B42]">Erkek</span>
+                                                <div className="mt-5 flex flex-col gap-2">
+                                                    {categories.map((category) => (
+                                                        category.gender == "e" && (<Link key={category.id} to={`shop/erkek/${category.title}/${category.id}`}>{category.title}</Link>)
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <Link to="/about" className="ml-[-5px]">About</Link>
                                 <Link to="/">Blog</Link>
                                 <Link to="/contact">Contact</Link>
                                 <Link to="/">Pages</Link>
