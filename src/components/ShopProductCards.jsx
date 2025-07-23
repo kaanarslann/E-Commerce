@@ -1,14 +1,20 @@
 import {useHistory} from "react-router-dom";
 import { Grip, SlidersHorizontal } from "lucide-react"
 import ShopProductCard from "./ShopProductCard"
+import { useSelector } from "react-redux";
+
 
 export default function ShopProductCards() {
     
     const history = useHistory();
 
+    const {productList, fetchState} = useSelector((state) => state.product);
+
     const handleClick = () => {
         history.push("/product");
     }
+
+    
     
     return (
         <section>
@@ -34,24 +40,15 @@ export default function ShopProductCards() {
                 </div>
             </div>
             <div className="shop-product-card-container flex flex-col md:gap-12 md:py-12 items-center">
-                <div className="shop-product-cards flex flex-col gap-[1.875rem] md:flex-row md:gap-[1.875rem]">
-                    <ShopProductCard onClick={handleClick}/>
-                    <ShopProductCard onClick={handleClick}/>
-                    <ShopProductCard onClick={handleClick}/>
-                    <ShopProductCard onClick={handleClick}/>
-                </div>
-                <div className="shop-product-cards md:flex gap-[1.875rem] md:flex-row md:gap-[1.875rem] hidden">
-                    <ShopProductCard onClick={handleClick}/>
-                    <ShopProductCard onClick={handleClick}/>
-                    <ShopProductCard onClick={handleClick}/>
-                    <ShopProductCard onClick={handleClick}/>
-                </div>
-                <div className="shop-product-cards md:flex flex-col gap-[1.875rem] md:flex-row md:gap-[1.875rem] hidden">
-                    <ShopProductCard onClick={handleClick}/>
-                    <ShopProductCard onClick={handleClick}/>
-                    <ShopProductCard onClick={handleClick}/>
-                    <ShopProductCard onClick={handleClick}/>
-                </div>
+                {fetchState == "FETCHING" ? (
+                    <div className="flex justify-center items-center py-10">
+                        <div className="animate-spin rounded-full h-10 w-10 border-4 border-blue-500 border-t-transparent"></div>
+                    </div>
+                ) : (<div className="shop-product-cards grid grid-cols-1 md:grid-cols-4 gap-[1.875rem] md:flex-row md:gap-[1.875rem]">
+                    {productList.map((product) => (
+                        <ShopProductCard key={product.id} product={product} onClick={handleClick}/>
+                    ))}
+                </div>)}
             </div>
             <div className="page-buttons flex justify-center mb-6">
                 <div className="buttons rounded-[0.421rem] w-[19.563rem] h-[4.625rem] text-sm font-bold leading-6 flex items-center">
