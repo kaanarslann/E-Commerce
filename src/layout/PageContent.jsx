@@ -15,7 +15,10 @@ export default function PageContent() {
                 <Route exact path="/">
                     <HomePage />
                 </Route>
-                <Route path="/shop">
+                <Route exact path="/shop">
+                    <ShopPage />
+                </Route>
+                <Route path="/shop/:gender/:categoryName/:categoryId">
                     <ShopPage />
                 </Route>
                 <Route path="/product">

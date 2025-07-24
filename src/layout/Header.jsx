@@ -93,7 +93,7 @@ export default function Header() {
                                                 <span className="text-[#252B42]">Kadın</span>
                                                 <div className="mt-5 flex flex-col gap-2">
                                                     {categories.map((category) => (
-                                                        category.gender == "k" && (<Link key={category.id} to={`shop/kadin/${category.title}/${category.id}`}>{category.title}</Link>)
+                                                        category.gender == "k" && (<Link key={category.id} to={`/shop/${category.gender}/${category.title}/${category.id}`}>{category.title}</Link>)
                                                     ))}
                                                 </div>
                                             </div>
@@ -101,7 +101,7 @@ export default function Header() {
                                                 <span className="text-[#252B42]">Erkek</span>
                                                 <div className="mt-5 flex flex-col gap-2">
                                                     {categories.map((category) => (
-                                                        category.gender == "e" && (<Link key={category.id} to={`shop/erkek/${category.title}/${category.id}`}>{category.title}</Link>)
+                                                        category.gender == "e" && (<Link key={category.id} to={`/shop/${category.gender}/${category.title}/${category.id}`}>{category.title}</Link>)
                                                     ))}
                                                 </div>
                                             </div>

@@ -2,11 +2,17 @@ import {useHistory} from "react-router-dom";
 import { Grip, SlidersHorizontal } from "lucide-react"
 import ShopProductCard from "./ShopProductCard"
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import { getProductsWithSort } from "../store/thunks/productThunks";
+import { useDispatch } from "react-redux";
 
 
 export default function ShopProductCards() {
     
+    const [sort, setSort] = useState("price:asc");
+    
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const {productList, fetchState} = useSelector((state) => state.product);
 
@@ -14,8 +20,10 @@ export default function ShopProductCards() {
         history.push("/product");
     }
 
-    
-    
+    const handleFilter = () => {
+        dispatch(getProductsWithSort(sort));
+    }
+
     return (
         <section>
             <div className="filters flex flex-col md:flex-row md:justify-between py-6 md:px-[14.5rem] gap-6 items-center">
@@ -32,11 +40,13 @@ export default function ShopProductCards() {
                     </div>
                 </div>
                 <div className="filter-options flex gap-[0.938rem]">
-                    <select className="h-[3.125rem] w-[8.813rem] bg-[#F9F9F9] text-[#737373] text-sm leading-7 rounded-[0.313rem] border border-[#DDDDDD] text-center">
-                        <option>Popularity</option>
-                        <option>Newest</option>
+                    <select className="h-[3.125rem] w-[8.813rem] bg-[#F9F9F9] text-[#737373] text-sm leading-7 rounded-[0.313rem] border border-[#DDDDDD] text-center" value={sort} onChange={(e) => setSort(e.target.value)}>
+                        <option value={"price:asc"}>Price: Ascending</option>
+                        <option value={"price:desc"}>Price: Descending</option>
+                        <option value={"rating:asc"}>Rating: Ascending</option>
+                        <option value={"rating:desc"}>Rating: Descending</option>
                     </select>
-                    <button className="bg-[#23A6F0] text-white text-center py-2.5 px-5 rounded-[0.313rem]">Filter</button>
+                    <button className="bg-[#23A6F0] text-white text-center py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer" onClick={handleFilter}>Filter</button>
                 </div>
             </div>
             <div className="shop-product-card-container flex flex-col md:gap-12 md:py-12 items-center">

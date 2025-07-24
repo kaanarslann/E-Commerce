@@ -35,3 +35,36 @@ export const getProducts = () => async (dispatch, getState) => {
         dispatch(setFetchState("FAILED"));
     }
 };
+
+export const getProductsWithSort = (sortValue) => async (dispatch) => {
+    try {
+        dispatch(setFetchState("FETCHING"));
+        const response = await axiosInstance.get(`/products?sort=${sortValue}`);
+        const {products, total} = response.data;
+
+        dispatch(setTotal(total));
+        dispatch(setProductList(products));
+        dispatch(setFetchState("FETCHED"));
+    } catch (error) {
+        console.error("Sort fetch failded: ", error);
+        dispatch(setFetchState("FAILED"));
+    }
+};
+
+export const getProductsByCategory = (categoryId) => async (dispatch) => {
+    try {
+        dispatch(setFetchState("FETCHING"));
+        const id = parseInt(categoryId);
+        console.log("thunk id", categoryId);
+        const response = await axiosInstance.get(`/products?category=${id}`);
+        const {products, total} = response.data;
+        console.log("category fetch: ", response.data);
+
+        dispatch(setTotal(total));
+        dispatch(setProductList(products));
+        dispatch(setFetchState("FETCHED"));
+    } catch (error) {
+        console.error("Fetch by category failed: ", error);
+        dispatch(setFetchState("FAILED"));
+    }
+};
