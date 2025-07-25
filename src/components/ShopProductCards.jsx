@@ -2,17 +2,25 @@ import {useHistory} from "react-router-dom";
 import { Grip, SlidersHorizontal } from "lucide-react"
 import ShopProductCard from "./ShopProductCard"
 import { useSelector } from "react-redux";
-import { useState } from "react";
-import { getProductsWithSort } from "../store/thunks/productThunks";
+import { useState, useEffect } from "react";
+import { getFilteredProducts } from "../store/thunks/productThunks";
 import { useDispatch } from "react-redux";
 
 
-export default function ShopProductCards() {
-    
-    const [sort, setSort] = useState("price:asc");
+export default function ShopProductCards({categoryId}) {
     
     const history = useHistory();
     const dispatch = useDispatch();
+
+    const [filters, setFilters] = useState({
+        categoryId: "",
+        filter: "",
+        sort: "price:asc"
+    });
+
+    useEffect(() => {
+        handleCategoryChange(categoryId);
+    }, [categoryId]);
 
     const {productList, fetchState} = useSelector((state) => state.product);
 
@@ -20,8 +28,20 @@ export default function ShopProductCards() {
         history.push("/product");
     }
 
+    const handleCategoryChange = (id) => {
+        setFilters((prev) => ({...prev, categoryId: id}));
+    };
+
+    const handleSortChange = (e) => {
+        setFilters((prev) => ({...prev, sort: e.target.value}));
+    };
+
+    const handleFilterChange = (e) => {
+        setFilters((prev) => ({...prev, filter: e.target.value}));
+    };
+
     const handleFilter = () => {
-        dispatch(getProductsWithSort(sort));
+        dispatch(getFilteredProducts(filters));
     }
 
     return (
@@ -40,7 +60,8 @@ export default function ShopProductCards() {
                     </div>
                 </div>
                 <div className="filter-options flex gap-[0.938rem]">
-                    <select className="h-[3.125rem] w-[8.813rem] bg-[#F9F9F9] text-[#737373] text-sm leading-7 rounded-[0.313rem] border border-[#DDDDDD] text-center" value={sort} onChange={(e) => setSort(e.target.value)}>
+                    <input type="text" placeholder="Filter" value={filters.filter} onChange={handleFilterChange} className="h-[3.125rem] w-[8.813rem] bg-[#F9F9F9] text-[#737373] text-sm leading-7 rounded-[0.313rem] border border-[#DDDDDD] pl-5"/>
+                    <select className="h-[3.125rem] w-[8.813rem] bg-[#F9F9F9] text-[#737373] text-sm leading-7 rounded-[0.313rem] border border-[#DDDDDD] text-center" value={filters.sort} onChange={handleSortChange}>
                         <option value={"price:asc"}>Price: Ascending</option>
                         <option value={"price:desc"}>Price: Descending</option>
                         <option value={"rating:asc"}>Rating: Ascending</option>
