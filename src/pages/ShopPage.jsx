@@ -16,9 +16,10 @@ export default function ShopPage() {
     }, [])
 
     useEffect(() => {
-        dispatch(getProductsByCategory(categoryId));
+        if (categoryId) {
+            dispatch(getProductsByCategory(categoryId));
+        }
     }, [categoryId])
-
     return (
         <>
             <ShopCategories />

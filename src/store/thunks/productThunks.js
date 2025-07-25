@@ -55,7 +55,9 @@ export const getProductsByCategory = (categoryId) => async (dispatch) => {
 export const getFilteredProducts = ({categoryId, filter, sort}) => async (dispatch) => {
     try {
         dispatch(setFetchState("FETCHING"));
-        const request = `category=${categoryId}&filter=${filter}&sort=${sort}`;
+        const request = [categoryId && `category=${categoryId}`,
+            filter && `filter=${filter}`,
+            sort && `sort=${sort}`].join("&");
         const response = await axiosInstance.get(`/products?${request}`);
         const {products, total} = response.data;
 
