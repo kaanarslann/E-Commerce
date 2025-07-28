@@ -1,11 +1,12 @@
-import { SET_CATEGORIES, SET_PRODUCT_LIST, SET_TOTAL, SET_FETCH_STATE, SET_LIMIT, SET_OFFSET, SET_FILTER } from "../actions/productActions";
+import { SET_CATEGORIES, SET_PRODUCT_LIST, SET_TOTAL, SET_FETCH_STATE, SET_LIMIT, SET_OFFSET, SET_FILTER, SET_PAGE, CLEAR_PRODUCT_LIST } from "../actions/productActions";
 
 const initialState = {
     categories: [],
     productList: [],
     total: 0,
-    limit: 25,
+    limit: 24,
     offset: 0,
+    page: 1,
     filter: "",
     fetchState: "NOT_FETCHED",
 };
@@ -39,7 +40,7 @@ function productReducer(state = initialState, action) {
         case SET_OFFSET:
             return {
                 ...state,
-                offset: action.payload,
+                offset: (state.page - 1) * state.limit,
             };
 
         case SET_FILTER:
@@ -52,6 +53,18 @@ function productReducer(state = initialState, action) {
             return {
                 ...state,
                 fetchState: action.payload,
+            };
+
+        case SET_PAGE:
+            return {
+                ...state,
+                page: action.payload,
+            };
+
+        case CLEAR_PRODUCT_LIST:
+            return {
+                ...state,
+                productList: [],
             };
 
         default:

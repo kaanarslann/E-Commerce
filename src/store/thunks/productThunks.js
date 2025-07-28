@@ -1,5 +1,5 @@
 import axiosInstance from "../../utils/axiosInstance";
-import { setCategories, setProductList, setTotal, setFetchState } from "../actions/productActions";
+import { setCategories, setProductList, setTotal, setFetchState, setPage } from "../actions/productActions";
 
 export const getCategories = () => async (dispatch, getState) => {
     const {categories} = getState().product;
@@ -15,17 +15,17 @@ export const getCategories = () => async (dispatch, getState) => {
     }
 };
 
-export const getProducts = () => async (dispatch, getState) => {
-    const {productList, fetchState} = getState().product;
+export const getProducts = ({limit, offset}) => async (dispatch, getState) => {
+    const {fetchState} = getState().product;
 
-    if(productList.length > 0 || fetchState == "FETCHING") {
+    if(fetchState == "FETCHING") {
         return;
     }
 
     try {
         dispatch(setFetchState("FETCHING"));
 
-        const response = await axiosInstance.get("/products");
+        const response = await axiosInstance.get(`/products?limit=${limit}&offset=${offset}`);
         const {products, total} = response.data;
         dispatch(setTotal(total));
         dispatch(setProductList(products));
@@ -36,11 +36,11 @@ export const getProducts = () => async (dispatch, getState) => {
     }
 };
 
-export const getProductsByCategory = (categoryId) => async (dispatch) => {
+export const getProductsByCategory = ({categoryId, limit, offset}) => async (dispatch) => {
     try {
         dispatch(setFetchState("FETCHING"));
         const id = parseInt(categoryId);
-        const response = await axiosInstance.get(`/products?category=${id}`);
+        const response = await axiosInstance.get(`/products?category=${id}&limit=${limit}&offset=${offset}`);
         const {products, total} = response.data;
 
         dispatch(setTotal(total));
@@ -52,12 +52,14 @@ export const getProductsByCategory = (categoryId) => async (dispatch) => {
     }
 };
 
-export const getFilteredProducts = ({categoryId, filter, sort}) => async (dispatch) => {
+export const getFilteredProducts = ({categoryId, filter, sort, limit, offset}) => async (dispatch) => {
     try {
         dispatch(setFetchState("FETCHING"));
         const request = [categoryId && `category=${categoryId}`,
             filter && `filter=${filter}`,
-            sort && `sort=${sort}`].join("&");
+            sort && `sort=${sort}`,
+            `limit=${limit}`,
+            `offset=${offset}`].join("&");
         const response = await axiosInstance.get(`/products?${request}`);
         const {products, total} = response.data;
 

@@ -3,20 +3,15 @@ import { Grip, SlidersHorizontal } from "lucide-react"
 import ShopProductCard from "./ShopProductCard"
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { setPage } from "../store/actions/productActions";
 import { getFilteredProducts } from "../store/thunks/productThunks";
 import { useDispatch } from "react-redux";
 
 
-export default function ShopProductCards({categoryId}) {
+export default function ShopProductCards({categoryId, filters, setFilters, handleFilter}) {
     
     const history = useHistory();
     const dispatch = useDispatch();
-
-    const [filters, setFilters] = useState({
-        categoryId: "",
-        filter: "",
-        sort: "price:asc"
-    });
 
     useEffect(() => {
         handleCategoryChange(categoryId);
@@ -30,19 +25,18 @@ export default function ShopProductCards({categoryId}) {
 
     const handleCategoryChange = (id) => {
         setFilters((prev) => ({...prev, categoryId: id}));
+        dispatch(setPage(1));
     };
 
     const handleSortChange = (e) => {
         setFilters((prev) => ({...prev, sort: e.target.value}));
+        dispatch(setPage(1));
     };
 
     const handleFilterChange = (e) => {
         setFilters((prev) => ({...prev, filter: e.target.value}));
     };
 
-    const handleFilter = () => {
-        dispatch(getFilteredProducts(filters));
-    }
 
     return (
         <section>
@@ -80,15 +74,6 @@ export default function ShopProductCards({categoryId}) {
                         <ShopProductCard key={product.id} product={product} onClick={handleClick}/>
                     ))}
                 </div>)}
-            </div>
-            <div className="page-buttons flex justify-center mb-6">
-                <div className="buttons rounded-[0.421rem] w-[19.563rem] h-[4.625rem] text-sm font-bold leading-6 flex items-center">
-                    <button className="bg-[#F3F3F3] text-[#BDBDBD] p-[1.563rem] rounded-tl-[0.421rem] rounded-bl-[0.421rem] border border-y-[#BDBDBD] hover:cursor-pointer">First</button>
-                    <span className="text-[#23A6F0] py-[1.563rem] px-5 border border-x-[#E9E9E9] border-y-[#BDBDBD] hover:cursor-pointer">1</span>
-                    <span className="text-[#23A6F0] py-[1.563rem] px-5 border border-x-[#E9E9E9] border-y-[#BDBDBD] hover:cursor-pointer">2</span>
-                    <span className="text-[#23A6F0] py-[1.563rem] px-5 border border-x-[#E9E9E9] border-y-[#BDBDBD] hover:cursor-pointer">3</span>
-                    <button className="text-[#23A6F0] p-[1.563rem] rounded-tr-[0.421rem] rounded-br-[0.421rem] border border-y-[#BDBDBD] border-x-[#BDBDBD] hover:cursor-pointer">Next</button>
-                </div>
             </div>
         </section>
     )

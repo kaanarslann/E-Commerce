@@ -5,6 +5,8 @@ export const SET_FETCH_STATE = "SET_FETCH_STATE";
 export const SET_LIMIT = "SET_LIMIT";
 export const SET_OFFSET = "SET_OFFSET";
 export const SET_FILTER = "SET_FILTER";
+export const SET_PAGE = "SET_PAGE";
+export const CLEAR_PRODUCT_LIST = "CLEAR_PRODUCT_LIST";
 
 export const setCategories = (categories) => ({
     type: SET_CATEGORIES,
@@ -31,12 +33,20 @@ export const setLimit = (limit) => ({
     payload: limit,
 });
 
-export const setOffset = (offset) => ({
+export const setOffset = () => ({
     type: SET_OFFSET,
-    payload: offset,
 });
 
 export const setFilter = (filter) => ({
     type: SET_FILTER,
     payload: filter,
+});
+
+export const setPage = (page) => ({
+    type: SET_PAGE,
+    payload: page,
+});
+
+export const clearProductList = () => ({
+    type: CLEAR_PRODUCT_LIST,
 });
