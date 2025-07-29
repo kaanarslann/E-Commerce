@@ -1,16 +1,15 @@
-import {useHistory} from "react-router-dom";
 import { Grip, SlidersHorizontal } from "lucide-react"
 import ShopProductCard from "./ShopProductCard"
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import {Link} from "react-router-dom";
 import { setPage } from "../store/actions/productActions";
-import { getFilteredProducts } from "../store/thunks/productThunks";
 import { useDispatch } from "react-redux";
+import { createProductUrl } from "../utils/createProductUrl";
 
 
 export default function ShopProductCards({categoryId, filters, setFilters, handleFilter}) {
     
-    const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -19,9 +18,7 @@ export default function ShopProductCards({categoryId, filters, setFilters, handl
 
     const {productList, fetchState} = useSelector((state) => state.product);
 
-    const handleClick = () => {
-        history.push("/product");
-    }
+    const categories = useSelector((state) => state.product.categories);
 
     const handleCategoryChange = (id) => {
         setFilters((prev) => ({...prev, categoryId: id}));
@@ -36,6 +33,7 @@ export default function ShopProductCards({categoryId, filters, setFilters, handl
     const handleFilterChange = (e) => {
         setFilters((prev) => ({...prev, filter: e.target.value}));
     };
+
 
 
     return (
@@ -71,7 +69,9 @@ export default function ShopProductCards({categoryId, filters, setFilters, handl
                     </div>
                 ) : (<div className="shop-product-cards grid grid-cols-1 md:grid-cols-4 gap-[1.875rem] md:flex-row md:gap-[1.875rem]">
                     {productList.map((product) => (
-                        <ShopProductCard key={product.id} product={product} onClick={handleClick}/>
+                        <Link to={createProductUrl(product, categories)}>
+                            <ShopProductCard key={product.id} product={product}/>
+                        </Link>
                     ))}
                 </div>)}
             </div>

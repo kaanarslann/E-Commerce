@@ -88,7 +88,7 @@ export default function Header() {
                                     <Link to="/shop">Shop</Link>
                                     <div className="dropdown relative inline-block group">
                                         <ChevronDown />
-                                        <div className="dropdown-content absolute hidden group-hover:flex gap-20 p-5 bg-white shadow-lg shadow-gray-400">
+                                        <div className="dropdown-content absolute hidden group-hover:flex gap-20 p-5 bg-white shadow-lg shadow-gray-400 z-10">
                                             <div className="category-women">
                                                 <span className="text-[#252B42]">Kadın</span>
                                                 <div className="mt-5 flex flex-col gap-2">

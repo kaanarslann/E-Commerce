@@ -7,6 +7,7 @@ export const SET_OFFSET = "SET_OFFSET";
 export const SET_FILTER = "SET_FILTER";
 export const SET_PAGE = "SET_PAGE";
 export const CLEAR_PRODUCT_LIST = "CLEAR_PRODUCT_LIST";
+export const SET_PRODUCT_DETAIL = "SET_PRODUCT_DETAIL";
 
 export const setCategories = (categories) => ({
     type: SET_CATEGORIES,
@@ -49,4 +50,9 @@ export const setPage = (page) => ({
 
 export const clearProductList = () => ({
     type: CLEAR_PRODUCT_LIST,
+});
+
+export const setProductDetail = (productDetail) => ({
+    type: SET_PRODUCT_DETAIL,
+    payload: productDetail,
 });

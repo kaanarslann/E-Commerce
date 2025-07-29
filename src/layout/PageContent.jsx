@@ -15,14 +15,14 @@ export default function PageContent() {
                 <Route exact path="/">
                     <HomePage />
                 </Route>
-                <Route exact path="/shop">
-                    <ShopPage />
+                <Route path="/shop/:gender/:categoryName/:categoryId/:productNameSlug/:productId">
+                    <ProductDetail />
                 </Route>
                 <Route path="/shop/:gender/:categoryName/:categoryId">
                     <ShopPage />
                 </Route>
-                <Route path="/product">
-                    <ProductDetail />
+                <Route exact path="/shop">
+                    <ShopPage />
                 </Route>
                 <Route path="/contact">
                     <Contact />

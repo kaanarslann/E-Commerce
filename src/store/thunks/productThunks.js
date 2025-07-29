@@ -1,5 +1,5 @@
 import axiosInstance from "../../utils/axiosInstance";
-import { setCategories, setProductList, setTotal, setFetchState, setPage } from "../actions/productActions";
+import { setCategories, setProductList, setTotal, setFetchState, setProductDetail } from "../actions/productActions";
 
 export const getCategories = () => async (dispatch, getState) => {
     const {categories} = getState().product;
@@ -70,4 +70,16 @@ export const getFilteredProducts = ({categoryId, filter, sort, limit, offset}) =
         console.error("Filter fetch failed: ", error);
         dispatch(setFetchState("FAILED"));
     }
-}
+};
+
+export const getProductDetail = (productId) => async (dispatch) => {
+    try {
+        dispatch(setFetchState("FETCHING"));
+        const response = await axiosInstance.get(`/products/${productId}`);
+        dispatch(setProductDetail(response.data));
+        dispatch(setFetchState("FETCHED"));
+    } catch (error) {
+        console.error("Product detail fetch failed: ", error);
+        dispatch(setFetchState("FAILED"));
+    }
+};
