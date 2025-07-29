@@ -27,8 +27,8 @@ export default function Header() {
     }, []);
 
     const categories = useSelector((state) => state.product.categories);
- 
     const user = useSelector((state) => state.client.user);
+    const shoppingCart = useSelector((state) => state.shoppingCart.cart);
     
     return (
         <header className="header md:mb-5">
@@ -125,7 +125,18 @@ export default function Header() {
                                     <Link to="/signup" className="login-text">Register</Link>
                                 </div>)}
                                 <Search />
-                                <ShoppingCart />
+                                <div className="dropdown relative inline-block group">
+                                    <ShoppingCart />
+                                    <div className="dropdown-content absolute hidden group-hover:flex gap-20 p-5 bg-white shadow-lg shadow-gray-400 z-10">
+                                        <div className="shopping-cart-content">
+                                            <ul>
+                                                {shoppingCart.map((item) => (
+                                                    <li key={item.product.id}>{item.product.name}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                                 <Heart />
                             </div>
                         </div>

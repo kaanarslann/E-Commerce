@@ -6,10 +6,14 @@ import { faStar as faStarRegular} from "@fortawesome/free-regular-svg-icons";
 import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
 import productMain1 from "../assets/productmain1.jpg";
 import productMain2 from "../assets/productmain2.jpg";
+import { addToCart } from "../store/thunks/shoppingCartThunks";
+import { useDispatch } from "react-redux";
 
 export default function Product({product}) {
     
     const [mainImage, setMainImage] = useState(productMain1);
+
+    const dispatch = useDispatch();
 
     const handleImage = () => {
         if(mainImage == productMain1) {
@@ -17,6 +21,10 @@ export default function Product({product}) {
         } else if(mainImage == productMain2) {
             setMainImage(productMain1);
         }
+    }
+
+    const handleCart = (product) => {
+        dispatch(addToCart(product));
     }
     
     return (
@@ -65,7 +73,7 @@ export default function Product({product}) {
                     <div className="product-buttons flex gap-2.5">
                         <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer">Select Options</button>
                         <div className="button-circle border border-[#E8E8E8] rounded-full w-10 h-10 flex justify-center items-center hover:cursor-pointer"><Heart /></div>
-                        <div className="button-circle border border-[#E8E8E8] rounded-full w-10 h-10 flex justify-center items-center hover:cursor-pointer"><ShoppingCart /></div>
+                        <div className="button-circle border border-[#E8E8E8] rounded-full w-10 h-10 flex justify-center items-center hover:cursor-pointer"><ShoppingCart onClick={() => handleCart(product)}/></div>
                         <div className="button-circle border border-[#E8E8E8] rounded-full w-10 h-10 flex justify-center items-center hover:cursor-pointer"><Eye /></div>
                     </div>
                 </div>
