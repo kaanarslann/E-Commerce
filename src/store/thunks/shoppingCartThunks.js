@@ -1,4 +1,5 @@
 import {setCart} from "../actions/shoppingCartActions";
+import { toast } from "react-toastify";
 
 export const addToCart = (product) => async (dispatch, getState) => {
     const {cart} = getState().shoppingCart;
@@ -7,8 +8,10 @@ export const addToCart = (product) => async (dispatch, getState) => {
     if(existingItem) {
         const updatedCart = cart.map((item) => item.product.id === product.id ? {...item, count: item.count + 1} : item);
         dispatch(setCart(updatedCart));
+        toast.success("The quantity of the product increased successfully.");
     } else {
         const updatedCart = [...cart, {count: 1, checked: true, product}];
         dispatch(setCart(updatedCart));
+        toast.success("Product added to the cart successfully!");
     }
 }; 

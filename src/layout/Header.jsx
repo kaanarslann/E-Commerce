@@ -29,6 +29,8 @@ export default function Header() {
     const categories = useSelector((state) => state.product.categories);
     const user = useSelector((state) => state.client.user);
     const shoppingCart = useSelector((state) => state.shoppingCart.cart);
+
+    const totalItems = shoppingCart.reduce((sum, item) => sum + item.count, 0);
     
     return (
         <header className="header md:mb-5">
@@ -125,19 +127,34 @@ export default function Header() {
                                     <Link to="/signup" className="login-text">Register</Link>
                                 </div>)}
                                 <Search />
+                                <Heart />
                                 <div className="dropdown relative inline-block group">
                                     <ShoppingCart />
-                                    <div className="dropdown-content absolute hidden group-hover:flex gap-20 p-5 bg-white shadow-lg shadow-gray-400 z-10">
-                                        <div className="shopping-cart-content">
-                                            <ul>
+                                    <div className="dropdown-content absolute hidden group-hover:flex p-5 bg-white shadow-lg shadow-gray-400 z-10 right-0">
+                                        <div className="shopping-cart-content flex w-80">
+                                            <ul className="flex flex-col gap-3">
+                                                <h1 className="text-[#252B42] font-bold">Shopping Cart</h1>
                                                 {shoppingCart.map((item) => (
-                                                    <li key={item.product.id}>{item.product.name}</li>
+                                                    <li key={item.product.id}>
+                                                        <div className="cart-item flex gap-5">
+                                                            <div className="cart-item-img w-[20%] mt-2">
+                                                                <img src={item.product.images[0].url}/>
+                                                            </div>
+                                                            <div className="cart-item-text flex flex-col gap-1 w-[80%] text-[#252B42]">
+                                                                <h2 className="font-bold">{item.product.name}</h2>
+                                                                <h3 className="font-normal">{item.product.description}</h3>
+                                                                <h4 className="font-normal">Adet: {item.count}</h4>
+                                                                <h2>${item.product.price}</h2>
+                                                            </div>
+                                                        </div>
+                                                    </li>
                                                 ))}
+                                                <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer w-[50%]">Shopping Cart</button>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <Heart />
+                                <span className="bg-[#23A6F0] rounded-full text-white w-6 text-center">{totalItems}</span>
                             </div>
                         </div>
                     </div>
