@@ -1,10 +1,8 @@
-import {Link} from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import {Link, useHistory} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../store/thunks/loginThunks";
 import { getCategories } from "../store/thunks/productThunks";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 import { User, Search, ShoppingCart, Menu, Phone, Mail, Instagram, Youtube, Facebook, Twitter, Heart, ChevronDown } from 'lucide-react';
 
@@ -17,10 +15,15 @@ export default function Header() {
     };
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleLogout = () => {
         dispatch(logoutUser());
     };
+
+    const handleToCart = () => {
+        history.push("/cart");
+    }
 
     useEffect(() => {
         dispatch(getCategories());
@@ -149,7 +152,7 @@ export default function Header() {
                                                         </div>
                                                     </li>
                                                 ))}
-                                                <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer w-[50%]">Shopping Cart</button>
+                                                <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer w-[50%]" onClick={handleToCart}>Shopping Cart</button>
                                             </ul>
                                         </div>
                                     </div>

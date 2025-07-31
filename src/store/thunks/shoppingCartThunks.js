@@ -14,4 +14,16 @@ export const addToCart = (product) => async (dispatch, getState) => {
         dispatch(setCart(updatedCart));
         toast.success("Product added to the cart successfully!");
     }
-}; 
+};
+
+export const updateProductCount = (productId, newCount) => (dispatch, getState) => {
+    const {cart} = getState().shoppingCart;
+    const updatedCart = cart.map((item) => item.product.id === productId ? {...item, count: newCount} : item);
+    dispatch(setCart(updatedCart));
+};
+
+export const deleteProduct = (productId) => (dispatch, getState) => {
+    const {cart} = getState().shoppingCart;
+    const updatedCart = cart.filter(item => item.product.id !== productId);
+    dispatch(setCart(updatedCart));
+};

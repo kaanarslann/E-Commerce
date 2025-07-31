@@ -7,6 +7,7 @@ import Team from "../pages/Team";
 import About from "../pages/About";
 import SignUp from "../pages/SignUp";
 import LogIn from "../pages/LogIn";
+import ShoppingCart from "../pages/ShoppingCart";
 
 export default function PageContent() {
     return (
@@ -38,6 +39,9 @@ export default function PageContent() {
                 </Route>
                 <Route path="/login">
                     <LogIn />
+                </Route>
+                <Route path="/cart">
+                    <ShoppingCart />
                 </Route>
             </Switch>
         </div>
