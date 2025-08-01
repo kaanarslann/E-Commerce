@@ -10,7 +10,7 @@ export const addToCart = (product) => async (dispatch, getState) => {
         dispatch(setCart(updatedCart));
         toast.success("The quantity of the product increased successfully.");
     } else {
-        const updatedCart = [...cart, {count: 1, checked: true, product}];
+        const updatedCart = [...cart, {count: 1, checked: false, product}];
         dispatch(setCart(updatedCart));
         toast.success("Product added to the cart successfully!");
     }
@@ -25,5 +25,11 @@ export const updateProductCount = (productId, newCount) => (dispatch, getState) 
 export const deleteProduct = (productId) => (dispatch, getState) => {
     const {cart} = getState().shoppingCart;
     const updatedCart = cart.filter(item => item.product.id !== productId);
+    dispatch(setCart(updatedCart));
+};
+
+export const toggleCheckProduct = (productId) => (dispatch, getState) => {
+    const {cart} = getState().shoppingCart;
+    const updatedCart = cart.map((item) => item.product.id === productId ? {...item, checked: !item.checked} : item);
     dispatch(setCart(updatedCart));
 };
