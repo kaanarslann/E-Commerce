@@ -1,16 +1,32 @@
 import { useState, useEffect } from "react";
 import AddressForm from "./AddressForm";
 import { useDispatch, useSelector } from "react-redux";
-import { getAddress } from "../store/thunks/clientThunks";
-import {Link} from "react-router-dom"
+import { getAddress, deleteAddress } from "../store/thunks/clientThunks";
 import { Plus, User, Smartphone } from "lucide-react";
 
 
 export default function AddressInfo() {
 
+    const [formSection, setFormSection] = useState(false);
+    const [addressData, setAddressData] = useState(null);
+    
     const dispatch = useDispatch();
 
     const addressList = useSelector((state) => state.client.addressList);
+
+    const handleNewButton = () => {
+        setAddressData(null);
+        setFormSection(true);
+    }
+
+    const handleEditButton = (address) => {
+        setAddressData(address);
+        setFormSection(true);
+    }
+
+    const handleDeleteAddress = (addressId) => {
+        dispatch(deleteAddress(addressId));
+    }
 
     useEffect(() => {
         dispatch(getAddress());
@@ -18,33 +34,34 @@ export default function AddressInfo() {
 
     return (
         <section className="address-info-main">
-            <div className="address-list">
-                <div className="address-new">
-                    <button><Plus /><span>Add New Address</span></button>
+            <div className="address-list flex flex-col items-center mt-15 gap-5">
+                <div className="address-new border w-100 h-25 flex justify-center items-center bg-gray-100">
+                    <button className="flex flex-col items-center hover:cursor-pointer" onClick={handleNewButton}><Plus color="#E77C40" /><span>Add New Address</span></button>
                 </div>
                 <div className="saved-address-list">
                     {addressList.length > 0 && addressList.map((address) => (
-                        <div key={address.id}>
-                            <div className="address-title">
-                                <div className="title-radio">
+                        <div key={address.id} className="flex flex-col w-100">
+                            <div className="address-title flex justify-between px-2">
+                                <div className="title-radio flex gap-1">
                                     <input type="radio" name={address.title} id="address-title"/>
                                     <label htmlFor="address-title">{address.title}</label>
                                 </div>
-                                <Link>Edit</Link>
+                                <button className="underline" onClick={() => handleDeleteAddress(address.id)}>Delete</button>
+                                <button className="underline" onClick={() => handleEditButton(address)}>Edit</button>
                             </div>
-                            <div className="address-container">
-                                <div className="fullname-phone">
-                                    <div className="fullname">
-                                        <User />
+                            <div className="address-container border w-100 h-40 flex flex-col gap-1 p-4 bg-gray-100">
+                                <div className="fullname-phone flex justify-between">
+                                    <div className="fullname flex gap-1 items-center">
+                                        <User color="#E77C40" size={16}/>
                                         <h4>{address.name}</h4>
                                         <h4>{address.surname}</h4>
                                     </div>
-                                    <div className="phone">
-                                        <Smartphone />
+                                    <div className="phone flex gap-1 items-center">
+                                        <Smartphone size={16}/>
                                         <h4>{address.phone}</h4>
                                     </div>
                                 </div>
-                                <div className="address-info">
+                                <div className="address-info flex flex-col">
                                     <h4>{address.city}</h4>
                                     <h4>{address.district}</h4>
                                     <h4>{address.neighborhood}</h4>
@@ -56,7 +73,7 @@ export default function AddressInfo() {
                 </div>
             </div>
             <div className="address-new">
-                <AddressForm />
+                {formSection && <AddressForm address={addressData}/>}
             </div>
         </section>
     );

@@ -152,7 +152,7 @@ export default function Header() {
                                                         </div>
                                                     </li>
                                                 ))}
-                                                <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer w-[50%]" onClick={handleToCart}>Shopping Cart</button>
+                                                {shoppingCart.length > 0 && <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer w-[50%]" onClick={handleToCart}>Shopping Cart</button>}
                                             </ul>
                                         </div>
                                     </div>

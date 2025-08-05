@@ -1,10 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
+import {useHistory} from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import { updateProductCount, deleteProduct, toggleCheckProduct } from "../store/thunks/shoppingCartThunks";
 
 export default function ShoppingCart() {
     
     const dispatch = useDispatch();
+    const history = useHistory();
     const shoppingCart = useSelector((state) => state.shoppingCart.cart);
 
     const itemPrice = shoppingCart.reduce((sum, item) => {return item.checked ? (sum + (item.product.price * item.count)) : sum}, 0);
@@ -14,6 +16,12 @@ export default function ShoppingCart() {
     const handleCheckbox = (productId) => {
         dispatch(toggleCheckProduct(productId));
     }
+
+    const handleCreateOrder = () => {
+        history.push("/order");
+    }
+
+    const isDisabled = shoppingCart.some((item) => item.checked);
 
     return (
         <section className="shopping-cart-main mx-9 md:mx-35 flex flex-col gap-5">
@@ -77,7 +85,7 @@ export default function ShoppingCart() {
                         </div>
                     </div>
                     <div className="summary-button w-[70%]">
-                        <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer w-full">Create Order</button>
+                        <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer w-full disabled:cursor-not-allowed" disabled={!isDisabled} onClick={handleCreateOrder}>Create Order</button>
                     </div>
                 </div>
             </div>

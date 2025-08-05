@@ -1,5 +1,6 @@
 import axiosInstance from "../../utils/axiosInstance";
 import { setRoles, setUser } from "../actions/clientActions";
+import { toast } from "react-toastify";
 
 export const getRoles = () => async (dispatch, getState) => {
     const {roles} = getState().client;
@@ -34,3 +35,46 @@ export const getAddress = () => async (dispatch, getState) => {
         console.error("Address fetch error: ", error);
     }
 };
+
+export const addAddress = (formData) => async (dispatch, getState) => {
+    const {user, addressList, creditCards} = getState().client;
+
+    try {
+        const response = await axiosInstance.post("/user/address", formData);
+        const newAddress = response.data[0];
+        dispatch(setUser(user, [...addressList, newAddress], creditCards));
+    } catch (error) {
+        console.error("Add new address error: ", error);
+    }
+}
+
+export const editAddress = (formData) => async (dispatch, getState) => {
+    const {user, addressList, creditCards} = getState().client;
+
+    try {
+        const response = await axiosInstance.put("/user/address", formData);
+        const updatedAddress = response.data[0];
+        const newList = addressList.map(address => address.id === updatedAddress.id ? updatedAddress : address);
+        dispatch(setUser(user, newList, creditCards));
+    } catch (error) {
+        console.error("Edit address error: ", error);
+    }
+}
+
+export const deleteAddress = (addressId) => async (dispatch, getState) => {
+    const {user, addressList, creditCards} = getState().client;
+    const token = localStorage.getItem("token");
+
+    try {
+         axiosInstance.defaults.headers.common["Authorization"] = token;
+        const response = await axiosInstance.delete(`/user/address/${addressId}`);
+        const message = response.data;
+        toast.success(message);
+
+        const updatedList = addressList.filter(address => address.id !== addressId);
+        dispatch(setUser(user, updatedList, creditCards));
+    } catch (error) {
+        console.error("Edit address error: ", error);
+        toast.error("Address delete failed!");
+    }
+}

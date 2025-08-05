@@ -9,8 +9,10 @@ import SignUp from "../pages/SignUp";
 import LogIn from "../pages/LogIn";
 import ShoppingCart from "../pages/ShoppingCart";
 import CreateOrder from "../pages/CreateOrder";
+import PrivateRoute from "../components/PrivateRoute";
 
 export default function PageContent() {
+
     return (
         <div className="page-content">
             <Switch>
@@ -44,9 +46,9 @@ export default function PageContent() {
                 <Route path="/cart">
                     <ShoppingCart />
                 </Route>
-                <Route path="/order">
+                <PrivateRoute path="/order">
                     <CreateOrder />
-                </Route>
+                </PrivateRoute>
             </Switch>
         </div>
     )
