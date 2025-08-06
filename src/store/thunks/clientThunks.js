@@ -74,7 +74,67 @@ export const deleteAddress = (addressId) => async (dispatch, getState) => {
         const updatedList = addressList.filter(address => address.id !== addressId);
         dispatch(setUser(user, updatedList, creditCards));
     } catch (error) {
-        console.error("Edit address error: ", error);
+        console.error("Delete address error: ", error);
         toast.error("Address delete failed!");
+    }
+}
+
+export const getCards = () => async (dispatch, getState) => {
+    const {user, addressList, creditCards} = getState().client;
+    const token = localStorage.getItem("token");
+
+    if(creditCards.length > 0)
+        return creditCards;
+
+    try {
+        axiosInstance.defaults.headers.common["Authorization"] = token;
+        const response = await axiosInstance.get("/user/card");
+        const data = response.data;
+        dispatch(setUser(user, addressList, data));
+    } catch (error) {
+        console.error("Credit Card fetch error: ", error);
+    }
+}
+
+export const addCard = (formData) => async (dispatch, getState) => {
+    const {user, addressList, creditCards} = getState().client;
+
+    try {
+        const response = await axiosInstance.post("/user/card", formData);
+        const newCard = response.data[0];
+        dispatch(setUser(user, addressList, [...creditCards, newCard]));
+    } catch (error) {
+        console.error("Add new card error: ", error);
+    }
+}
+
+export const editCard = (formData) => async (dispatch, getState) => {
+    const {user, addressList, creditCards} = getState().client;
+
+    try {
+        const response = await axiosInstance.put("/user/card", formData);
+        const updatedCard = response.data[0];
+        const newList = creditCards.map(card => card.id === updatedCard.id ? updatedCard : card);
+        dispatch(setUser(user, addressList, newList));
+    } catch (error) {
+        console.error("Edit card error: ", error);
+    }
+}
+
+export const deleteCard = (cardId) => async (dispatch, getState) => {
+    const {user, addressList, creditCards} = getState().client;
+    const token = localStorage.getItem("token");
+
+    try {
+         axiosInstance.defaults.headers.common["Authorization"] = token;
+        const response = await axiosInstance.delete(`/user/card/${cardId}`);
+        const message = response.data;
+        toast.success(message);
+
+        const updatedList = creditCards.filter(card => card.id !== cardId);
+        dispatch(setUser(user, addressList, updatedList));
+    } catch (error) {
+        console.error("Delete card error: ", error);
+        toast.error("Card delete failed!");
     }
 }

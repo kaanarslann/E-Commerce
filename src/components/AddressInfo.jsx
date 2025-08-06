@@ -5,7 +5,7 @@ import { getAddress, deleteAddress } from "../store/thunks/clientThunks";
 import { Plus, User, Smartphone } from "lucide-react";
 
 
-export default function AddressInfo() {
+export default function AddressInfo({setStep}) {
 
     const [formSection, setFormSection] = useState(false);
     const [addressData, setAddressData] = useState(null);
@@ -28,6 +28,14 @@ export default function AddressInfo() {
         dispatch(deleteAddress(addressId));
     }
 
+    const handleRadioButton = () => {
+
+    }
+
+    const handleConfirmButton = () => {
+        setStep(2);
+    }
+
     useEffect(() => {
         dispatch(getAddress());
     }, [])
@@ -46,8 +54,10 @@ export default function AddressInfo() {
                                     <input type="radio" name={address.title} id="address-title"/>
                                     <label htmlFor="address-title">{address.title}</label>
                                 </div>
-                                <button className="underline" onClick={() => handleDeleteAddress(address.id)}>Delete</button>
-                                <button className="underline" onClick={() => handleEditButton(address)}>Edit</button>
+                                <div className="title-buttons flex gap-3">
+                                    <button className="underline" onClick={() => handleDeleteAddress(address.id)}>Delete</button>
+                                    <button className="underline" onClick={() => handleEditButton(address)}>Edit</button>
+                                </div>
                             </div>
                             <div className="address-container border w-100 h-40 flex flex-col gap-1 p-4 bg-gray-100">
                                 <div className="fullname-phone flex justify-between">
@@ -71,6 +81,7 @@ export default function AddressInfo() {
                         </div>
                     ))}
                 </div>
+                <button className="bg-[#23A6F0] disabled:bg-blue-300 disabled:hover:cursor-not-allowed text-white p-1.5 rounded w-[7rem] h-[3rem] hover:cursor-pointer text-center flex items-center justify-center md:w-[9rem] md:h-[4rem]" onClick={handleConfirmButton}>Confirm Address</button>
             </div>
             <div className="address-new">
                 {formSection && <AddressForm address={addressData}/>}
