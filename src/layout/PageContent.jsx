@@ -10,6 +10,7 @@ import LogIn from "../pages/LogIn";
 import ShoppingCart from "../pages/ShoppingCart";
 import CreateOrder from "../pages/CreateOrder";
 import PrivateRoute from "../components/PrivateRoute";
+import OrderHistory from "../pages/OrderHistory";
 
 export default function PageContent() {
 
@@ -48,6 +49,9 @@ export default function PageContent() {
                 </Route>
                 <PrivateRoute path="/order">
                     <CreateOrder />
+                </PrivateRoute>
+                <PrivateRoute path="/history">
+                    <OrderHistory />
                 </PrivateRoute>
             </Switch>
         </div>

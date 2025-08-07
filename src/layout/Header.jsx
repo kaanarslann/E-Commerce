@@ -23,6 +23,10 @@ export default function Header() {
 
     const handleToCart = () => {
         history.push("/cart");
+    };
+
+    const handleHistory = () => {
+        history.push("/history");
     }
 
     useEffect(() => {
@@ -121,8 +125,13 @@ export default function Header() {
                             <div className="tools flex text-[#23A6F0] text-sm font-bold leading-6 gap-3.5">
                                 {user ? (<div className="login flex gap-[0.313rem] mr-3">
                                     <User />
-                                    <span>Welcome, {user.name}</span>
-                                    <span className="hover: cursor-pointer pl-2.5" onClick={handleLogout}>Log Out</span>
+                                    <div className="dropdown relative inline-block group">
+                                        <span>Welcome, {user.name}</span>
+                                        <div className="dropdown-content absolute hidden group-hover:flex flex-col gap-2 p-5 bg-white shadow-lg shadow-gray-400 z-10">
+                                            <span className="hover: cursor-pointer" onClick={handleHistory}>Order History</span>
+                                            <span className="hover: cursor-pointer" onClick={handleLogout}>Log Out</span>
+                                        </div>
+                                    </div>
                                 </div>) : (<div className="login flex gap-[0.313rem] mr-3">
                                     <User />
                                     <Link to="/login" className="login-text">Login</Link>

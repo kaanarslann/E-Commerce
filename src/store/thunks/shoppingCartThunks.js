@@ -1,6 +1,5 @@
 import axiosInstance from "../../utils/axiosInstance";
 import {setCart, setPayment, setAddress, setPrice} from "../actions/shoppingCartActions";
-import { setOrders } from "../actions/clientActions";
 import { toast } from "react-toastify";
 
 export const addToCart = (product) => async (dispatch, getState) => {
@@ -49,7 +48,6 @@ export const addPrice = (totalPrice) => (dispatch) => {
 }
 
 export const confirmOrder = (addressId, cardInfo, products, totalPrice, history) => async (dispatch, getState) => {
-    const {orders} = getState().client || [];
     
     const payload = {
         address_id: addressId,
@@ -68,9 +66,8 @@ export const confirmOrder = (addressId, cardInfo, products, totalPrice, history)
 
     try {
         const response = await axiosInstance.post("/order", payload);
-        const newOrder = response.data;
+        console.log(response.data);
         toast.success("Order successfull!");
-        dispatch(setOrders([...orders, newOrder]));
         dispatch(setCart([]));
         dispatch(setPrice(0));
         history.push("/");

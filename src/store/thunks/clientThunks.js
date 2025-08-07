@@ -1,5 +1,5 @@
 import axiosInstance from "../../utils/axiosInstance";
-import { setRoles, setUser } from "../actions/clientActions";
+import { setRoles, setUser, setOrders } from "../actions/clientActions";
 import { toast } from "react-toastify";
 
 export const getRoles = () => async (dispatch, getState) => {
@@ -136,5 +136,17 @@ export const deleteCard = (cardId) => async (dispatch, getState) => {
     } catch (error) {
         console.error("Delete card error: ", error);
         toast.error("Card delete failed!");
+    }
+}
+
+export const getOrders = () => async (dispatch) => {
+    const token = localStorage.getItem("token");
+
+    try {
+        axiosInstance.defaults.headers.common["Authorization"] = token;
+        const response = await axiosInstance.get("/order");
+        dispatch(setOrders(response.data));
+    } catch (error) {
+        console.error("Order history fetch failed: ", error);
     }
 }

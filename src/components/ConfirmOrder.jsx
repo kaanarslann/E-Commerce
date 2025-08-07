@@ -20,7 +20,6 @@ export default function ConfirmOrder() {
         const totalPrice = price; 
         dispatch(confirmOrder(addressId, cardInfo, products, totalPrice, history));
     }
-
     
     return (
         <section className="confirm-order-main mt-10 ml-5 flex flex-col gap-5">
