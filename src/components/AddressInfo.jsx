@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AddressForm from "./AddressForm";
 import { useDispatch, useSelector } from "react-redux";
 import { getAddress, deleteAddress } from "../store/thunks/clientThunks";
+import { addCartAddress } from "../store/thunks/shoppingCartThunks";
 import { Plus, User, Smartphone } from "lucide-react";
 
 
@@ -9,6 +10,7 @@ export default function AddressInfo({setStep}) {
 
     const [formSection, setFormSection] = useState(false);
     const [addressData, setAddressData] = useState(null);
+    const [confirmButton, setConfirmButton] = useState(true);
     
     const dispatch = useDispatch();
 
@@ -28,8 +30,9 @@ export default function AddressInfo({setStep}) {
         dispatch(deleteAddress(addressId));
     }
 
-    const handleRadioButton = () => {
-
+    const handleRadioButton = (address) => {
+        dispatch(addCartAddress(address));
+        setConfirmButton(false);
     }
 
     const handleConfirmButton = () => {
@@ -51,7 +54,7 @@ export default function AddressInfo({setStep}) {
                         <div key={address.id} className="flex flex-col w-100">
                             <div className="address-title flex justify-between px-2">
                                 <div className="title-radio flex gap-1">
-                                    <input type="radio" name={address.title} id="address-title"/>
+                                    <input type="radio" name={address.title} id="address-title" onChange={() => handleRadioButton(address)}/>
                                     <label htmlFor="address-title">{address.title}</label>
                                 </div>
                                 <div className="title-buttons flex gap-3">
@@ -81,7 +84,7 @@ export default function AddressInfo({setStep}) {
                         </div>
                     ))}
                 </div>
-                <button className="bg-[#23A6F0] disabled:bg-blue-300 disabled:hover:cursor-not-allowed text-white p-1.5 rounded w-[7rem] h-[3rem] hover:cursor-pointer text-center flex items-center justify-center md:w-[9rem] md:h-[4rem]" onClick={handleConfirmButton}>Confirm Address</button>
+                <button className="bg-[#23A6F0] disabled:bg-blue-300 disabled:hover:cursor-not-allowed text-white p-1.5 rounded w-[7rem] h-[3rem] hover:cursor-pointer text-center flex items-center justify-center md:w-[9rem] md:h-[4rem]" disabled={confirmButton} onClick={handleConfirmButton}>Confirm Address</button>
             </div>
             <div className="address-new">
                 {formSection && <AddressForm address={addressData}/>}

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import {useHistory} from "react-router-dom";
 import { Trash2 } from "lucide-react";
-import { updateProductCount, deleteProduct, toggleCheckProduct } from "../store/thunks/shoppingCartThunks";
+import { updateProductCount, deleteProduct, toggleCheckProduct, addPrice } from "../store/thunks/shoppingCartThunks";
 
 export default function ShoppingCart() {
     
@@ -17,7 +17,8 @@ export default function ShoppingCart() {
         dispatch(toggleCheckProduct(productId));
     }
 
-    const handleCreateOrder = () => {
+    const handleCreateOrder = (totalPrice) => {
+        dispatch(addPrice(totalPrice));
         history.push("/order");
     }
 
@@ -85,7 +86,7 @@ export default function ShoppingCart() {
                         </div>
                     </div>
                     <div className="summary-button w-[70%]">
-                        <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer w-full disabled:cursor-not-allowed" disabled={!isDisabled} onClick={handleCreateOrder}>Create Order</button>
+                        <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer w-full disabled:cursor-not-allowed" disabled={!isDisabled} onClick={() => handleCreateOrder(totalPrice)}>Create Order</button>
                     </div>
                 </div>
             </div>

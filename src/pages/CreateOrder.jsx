@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AddressInfo from "../components/AddressInfo";
 import CreditCardInfo from "../components/CreditCardInfo";
+import ConfirmOrder from "../components/ConfirmOrder";
 
 export default function CreateOrder() {
 
@@ -9,20 +10,22 @@ export default function CreateOrder() {
     return (
         <section className="create-order-main">
             <div className="create-order-content">
-                <div className="content-nav flex justify-center gap-5">
-                    <div className="nav-address">
-                        <h2 className={step === 1 ? "text-orange-400" : "text-black"}>Address Information</h2>
-                    </div>
-                    <div className="nav-creditcard">
-                        <h2 className={step === 2 ? "text-orange-400" : "text-black"}>Credit Card Information</h2>
-                    </div>
+                <div className="content-nav flex justify-center gap-5 items-center">
+                    <h2 className={step === 1 ? "text-orange-400 border border-orange-600 p-2 rounded-sm" : "text-black border border-black p-2 rounded-sm"}>Address Information</h2>
+                    <h2 className="text-gray-500">/</h2>
+                    <h2 className={step === 2 ? "text-orange-400 border border-orange-600 p-2 rounded-sm" : "text-black border border-black p-2 rounded-sm"}>Payment Information</h2>
+                    <h2 className="text-gray-500">/</h2>
+                    <h2 className={step === 3 ? "text-orange-400 border border-orange-600 p-2 rounded-sm" : "text-black border border-black p-2 rounded-sm"}>Confirm Order</h2>
                 </div>
                 <div className="create-order-container">
                     {step === 1 && <AddressInfo setStep={setStep} />}
                     {step === 2 && <CreditCardInfo setStep={setStep}/>}
+                    {step === 3 && <ConfirmOrder setStep={setStep}/>}
                 </div>
             </div>
-            <div className="create-order-summary"></div>
+            <div className="create-order-summary">
+
+            </div>
         </section>
     ); 
 }

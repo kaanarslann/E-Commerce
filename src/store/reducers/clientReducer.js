@@ -1,4 +1,4 @@
-import { SET_USER, SET_ROLES, SET_THEME, SET_LANGUAGE } from "../actions/clientActions";
+import { SET_USER, SET_ROLES, SET_THEME, SET_LANGUAGE,SET_ORDERS } from "../actions/clientActions";
 
 const initialState = {
     user: null,
@@ -7,6 +7,7 @@ const initialState = {
     roles: [],
     theme: "light",
     language: "en",
+    orders: [],
 };
 
 function clientReducer(state = initialState, action) {
@@ -35,6 +36,12 @@ function clientReducer(state = initialState, action) {
             return {
                 ...state,
                 language: action.payload,
+            };
+
+        case SET_ORDERS:
+            return {
+                ...state,
+                orders: action.payload || [],
             };
 
         default:

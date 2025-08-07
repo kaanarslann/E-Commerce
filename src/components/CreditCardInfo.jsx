@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCards, deleteCard } from "../store/thunks/clientThunks";
 import CreditCardForm from "./CreditCardForm";
+import { addCartCard } from "../store/thunks/shoppingCartThunks";
 
 export default function CreditCardInfo({setStep}) {
 
     const [formSection, setFormSection] = useState(false);
     const [cardData, setCardData] = useState(null);
+    const [confirmButton, setConfirmButton] = useState(true);
 
     const dispatch = useDispatch();
 
@@ -28,12 +30,17 @@ export default function CreditCardInfo({setStep}) {
     }
 
     const handleConfirmButton = () => {
-        setStep(2);
+        setStep(3);
     }
 
     const handleReturnButton = () => {
         setStep(1);
     }
+
+     const handleRadioButton = (card) => {
+        dispatch(addCartCard(card));
+        setConfirmButton(false);
+     }
 
 
     useEffect(() => {
@@ -51,7 +58,7 @@ export default function CreditCardInfo({setStep}) {
                         <div key={card.id} className="flex flex-col w-100">
                             <div className="card-title flex justify-between px-2">
                                 <div className="title-radio flex gap-1">
-                                    <input type="radio" name="card-title" id="card-title"/>
+                                    <input type="radio" name={card.id} id="card-title" onChange={() => handleRadioButton(card)}/>
                                     <label htmlFor="card-title">Credit Card: {card.id}</label>
                                 </div>
                                 <div className="title-buttons flex gap-3">
@@ -74,7 +81,7 @@ export default function CreditCardInfo({setStep}) {
                     ))}
                 </div>
                 <div className="card-buttons flex gap-3">
-                    <button className="bg-[#23A6F0] disabled:bg-blue-300 disabled:hover:cursor-not-allowed text-white p-1.5 rounded w-[7rem] h-[3rem] hover:cursor-pointer text-center flex items-center justify-center md:w-[9rem] md:h-[4rem]" onClick={handleConfirmButton}>Confirm Card</button>
+                    <button className="bg-[#23A6F0] disabled:bg-blue-300 disabled:hover:cursor-not-allowed text-white p-1.5 rounded w-[7rem] h-[3rem] hover:cursor-pointer text-center flex items-center justify-center md:w-[9rem] md:h-[4rem]" disabled={confirmButton} onClick={handleConfirmButton}>Confirm Card</button>
                     <button className="bg-[#23A6F0] disabled:bg-blue-300 disabled:hover:cursor-not-allowed text-white p-1.5 rounded w-[7rem] h-[3rem] hover:cursor-pointer text-center flex items-center justify-center md:w-[9rem] md:h-[4rem]" onClick={handleReturnButton}>Return To Address</button>
                 </div>
             </div>
