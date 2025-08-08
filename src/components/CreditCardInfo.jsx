@@ -54,7 +54,7 @@ export default function CreditCardInfo({setStep}) {
     return (
         <section className="creditcard-form-main">
             <div className="card-list flex flex-col items-center mt-15 gap-5">
-                <div className="card-new border w-80 h-25 flex justify-center items-center bg-gray-100">
+                <div className="card-new border w-80 h-25 flex justify-center items-center bg-gray-100 rounded">
                     <button className="flex flex-col items-center hover:cursor-pointer" onClick={handleNewButton}><Plus color="#E77C40" /><span>Add New Credit Card</span></button>
                 </div>
                 <div className={creditCards.length > 1 ? "saved-card-list md:grid md:grid-cols-2 md:gap-5" : "saved-cards-list"}>
@@ -70,7 +70,7 @@ export default function CreditCardInfo({setStep}) {
                                     <button className="underline" onClick={() => handleEditButton(card)}>Edit</button>
                                 </div>
                             </div>
-                            <div className="card-container border w-90 h-30 flex flex-col gap-1 p-4 bg-gray-100">
+                            <div className="card-container border w-90 h-30 flex flex-col gap-1 p-4 bg-gray-100 rounded">
                                 <div className="card-info flex flex-col">
                                     <div className="card-name flex justify-between">
                                         <h4>Name:</h4>

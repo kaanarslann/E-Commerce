@@ -36,9 +36,9 @@ export default function ConfirmOrder({setStep}) {
             </div>
             <div className="confirm-products flex flex-col">
                 <h2 className="font-bold text-lg">Product(s):</h2>
-                <div className="products-container flex border-b border-gray-300">
+                <div className="products-container flex flex-col">
                     {checkedCart.map((item) => ( 
-                        <div key={item.product.id} className="flex gap-3">
+                        <div key={item.product.id} className="flex gap-3 border-b border-gray-300 mt-3">
                             <div className="product-image w-[30%] flex">
                                 <img src={item.product.images[0].url} className="h-[80%]"/>
                             </div>

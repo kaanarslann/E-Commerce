@@ -50,7 +50,7 @@ export default function AddressInfo({setStep}) {
     return (
         <section className="address-info-main">
             <div className="address-list flex flex-col items-center mt-15 gap-5">
-                <div className="address-new border w-80 h-25 flex justify-center items-center bg-gray-100">
+                <div className="address-new border w-80 h-25 flex justify-center items-center bg-gray-100 rounded">
                     <button className="flex flex-col items-center hover:cursor-pointer" onClick={handleNewButton}><Plus color="#E77C40" /><span>Add New Address</span></button>
                 </div>
                 <div className={addressList.length > 1 ? "saved-address-list md:grid md:grid-cols-2 md:gap-5" : "saved-address-list"}>
@@ -66,7 +66,7 @@ export default function AddressInfo({setStep}) {
                                     <button className="underline" onClick={() => handleEditButton(address)}>Edit</button>
                                 </div>
                             </div>
-                            <div className="address-container border w-90 h-40 flex flex-col gap-1 p-4 bg-gray-100">
+                            <div className="address-container border w-90 h-40 flex flex-col gap-1 p-4 bg-gray-100 rounded">
                                 <div className="fullname-phone flex justify-between">
                                     <div className="fullname flex gap-1 items-center">
                                         <User color="#E77C40" size={16}/>
