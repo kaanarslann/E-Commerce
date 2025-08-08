@@ -10,7 +10,7 @@ export default function CreateOrder() {
     return (
         <section className="create-order-main">
             <div className="create-order-content">
-                <div className="content-nav flex justify-center gap-5 items-center">
+                <div className="content-nav flex justify-center gap-5 items-center pl-5 text-center">
                     <h2 className={step === 1 ? "text-orange-400 border border-orange-600 p-2 rounded-sm" : "text-black border border-black p-2 rounded-sm"}>Address Information</h2>
                     <h2 className="text-gray-500">/</h2>
                     <h2 className={step === 2 ? "text-orange-400 border border-orange-600 p-2 rounded-sm" : "text-black border border-black p-2 rounded-sm"}>Payment Information</h2>
