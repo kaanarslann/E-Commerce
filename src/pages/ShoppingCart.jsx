@@ -65,7 +65,7 @@ export default function ShoppingCart() {
                         </li>
                     )))}
                 </ul>
-                <div className="order-summary flex flex-col md:w-[30%] gap-3">
+                <div className="order-summary flex flex-col md:w-[30%] gap-3 items-center">
                     <div className="summary-container border border-[#BDBDBD] rounded-sm flex flex-col w-[70%] p-4">
                         <h1 className="text-xl mb-2 font-bold">Order Summary</h1>
                         <div className="summary-items flex justify-between">

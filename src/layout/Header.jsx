@@ -36,6 +36,8 @@ export default function Header() {
     const categories = useSelector((state) => state.product.categories);
     const user = useSelector((state) => state.client.user);
     const shoppingCart = useSelector((state) => state.shoppingCart.cart);
+    const limitedCart = shoppingCart.slice(0, 3);
+    const restOfCart = shoppingCart.length - limitedCart.length;
 
     const totalItems = shoppingCart.reduce((sum, item) => sum + item.count, 0);
     
@@ -50,15 +52,25 @@ export default function Header() {
                         <div className="tools flex gap-6">
                             <User />
                             <Search />
-                            <ShoppingCart />
+                            <button onClick={handleToCart} className="hover:cursor-pointer"><ShoppingCart /></button>
+                            <span className="bg-[#23A6F0] rounded-full text-white w-6 text-center">{totalItems}</span>
                             <button onClick={toogleNavbar}><Menu /></button>
                         </div>
                     </div>
                     {isOpen && (<div className="header-navbar">
-                        <nav className="navbar flex flex-col items-center gap-[1.875rem] text-3xl font-normal leading-[2.813rem] text-[#737373] my-[7.875rem]">
+                        <nav className="navbar flex flex-col items-center gap-5 text-2xl font-normal leading-[2.813rem] text-[#737373] my-10">
                             <Link to="/">Home</Link>
                             <Link to="/shop">Product</Link>
-                            <Link to="/">Pricing</Link>
+                            {user ? (<div className="flex gap-3">
+                                <Link to="/history">Order History</Link>
+                                <span>/</span>
+                                <span onClick={handleLogout} className="hover:cursor-pointer">Logout</span>
+                            </div>
+                            ) : (<div className="flex gap-3">
+                                <Link to="/login">Login</Link>
+                                <span>/</span>
+                                <Link to="/signup">Sign Up</Link>
+                            </div>)}
                             <Link to="/contact">Contact</Link>
                         </nav>
                     </div>)}
@@ -146,7 +158,7 @@ export default function Header() {
                                         <div className="shopping-cart-content flex w-80">
                                             <ul className="flex flex-col gap-3">
                                                 <h1 className="text-[#252B42] font-bold">Shopping Cart</h1>
-                                                {shoppingCart.map((item) => (
+                                                {limitedCart.map((item) => (
                                                     <li key={item.product.id}>
                                                         <div className="cart-item flex gap-5">
                                                             <div className="cart-item-img w-[20%] mt-2">
@@ -161,6 +173,9 @@ export default function Header() {
                                                         </div>
                                                     </li>
                                                 ))}
+                                                <div>
+                                                    {shoppingCart.length > 3 && <h2>{restOfCart} item(s) more</h2>}
+                                                </div>
                                                 {shoppingCart.length > 0 && <button className="bg-[#23A6F0] text-white py-2.5 px-5 rounded-[0.313rem] hover:cursor-pointer w-[50%]" onClick={handleToCart}>Shopping Cart</button>}
                                             </ul>
                                         </div>
