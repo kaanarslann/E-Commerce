@@ -62,11 +62,11 @@ export default function CreditCardInfo({setStep}) {
                         <div key={card.id} className="flex flex-col w-90">
                             <div className="card-title flex justify-between px-2">
                                 <div className="title-radio flex gap-1">
-                                    <input type="radio" name={card.id} id="card-title" onChange={() => handleRadioButton(card)}/>
-                                    <label htmlFor="card-title">Credit Card: {card.id}</label>
+                                    <input type="radio" name={card?.id} id="card-title" onChange={() => handleRadioButton(card)}/>
+                                    <label htmlFor="card-title">Credit Card: {card?.id}</label>
                                 </div>
                                 <div className="title-buttons flex gap-3">
-                                    <button className="underline" onClick={() => handleDeleteCard(card.id)}>Delete</button>
+                                    <button className="underline" onClick={() => handleDeleteCard(card?.id)}>Delete</button>
                                     <button className="underline" onClick={() => handleEditButton(card)}>Edit</button>
                                 </div>
                             </div>

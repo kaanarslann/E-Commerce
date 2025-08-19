@@ -47,7 +47,7 @@ export const addPrice = (totalPrice) => (dispatch) => {
     dispatch(setPrice(totalPrice));
 }
 
-export const confirmOrder = (addressId, cardInfo, products, totalPrice, history) => async (dispatch, getState) => {
+export const confirmOrder = (addressId, cardInfo, products, totalPrice, history) => async (dispatch) => {
     
     const payload = {
         address_id: addressId,

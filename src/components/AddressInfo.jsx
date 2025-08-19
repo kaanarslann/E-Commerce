@@ -55,14 +55,14 @@ export default function AddressInfo({setStep}) {
                 </div>
                 <div className={addressList.length > 1 ? "saved-address-list md:grid md:grid-cols-2 md:gap-5" : "saved-address-list"}>
                     {addressList.length > 0 && addressList.map((address) => (
-                        <div key={address.id} className="flex flex-col w-90">
+                        <div key={address?.id} className="flex flex-col w-90">
                             <div className="address-title flex justify-between px-2">
                                 <div className="title-radio flex gap-1">
-                                    <input type="radio" name={address.title} id="address-title" onChange={() => handleRadioButton(address)}/>
-                                    <label htmlFor="address-title">{address.title}</label>
+                                    <input type="radio" name={address?.title} id="address-title" onChange={() => handleRadioButton(address)}/>
+                                    <label htmlFor="address-title">{address?.title}</label>
                                 </div>
                                 <div className="title-buttons flex gap-3">
-                                    <button className="underline" onClick={() => handleDeleteAddress(address.id)}>Delete</button>
+                                    <button className="underline" onClick={() => handleDeleteAddress(address?.id)}>Delete</button>
                                     <button className="underline" onClick={() => handleEditButton(address)}>Edit</button>
                                 </div>
                             </div>
@@ -70,30 +70,30 @@ export default function AddressInfo({setStep}) {
                                 <div className="fullname-phone flex justify-between">
                                     <div className="fullname flex gap-1 items-center">
                                         <User color="#E77C40" size={16}/>
-                                        <h4>{address.name}</h4>
-                                        <h4>{address.surname}</h4>
+                                        <h4>{address?.name}</h4>
+                                        <h4>{address?.surname}</h4>
                                     </div>
                                     <div className="phone flex gap-1 items-center">
                                         <Smartphone size={16}/>
-                                        <h4>{address.phone}</h4>
+                                        <h4>{address?.phone}</h4>
                                     </div>
                                 </div>
                                 <div className="address-info flex flex-col">
                                     <div className="address-city flex justify-between">
                                         <h4>City:</h4>
-                                        <h4>{address.city}</h4>
+                                        <h4>{address?.city}</h4>
                                     </div>
                                     <div className="address-district flex justify-between">
                                         <h4>District:</h4>
-                                        <h4>{address.district}</h4>
+                                        <h4>{address?.district}</h4>
                                     </div>
                                     <div className="address-neighborhood flex justify-between">
                                         <h4>Neighborhood:</h4>
-                                        <h4>{address.neighborhood}</h4>
+                                        <h4>{address?.neighborhood}</h4>
                                     </div>
                                     <div className="address-address flex justify-between">
                                         <h4>Address:</h4>
-                                        <h4>{address.address}</h4>
+                                        <h4>{address?.address}</h4>
                                     </div>
                                 </div>
                             </div>

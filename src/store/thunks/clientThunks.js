@@ -41,7 +41,9 @@ export const addAddress = (formData) => async (dispatch, getState) => {
 
     try {
         const response = await axiosInstance.post("/user/address", formData);
-        const newAddress = response.data[0];
+        console.log(response.data);
+        //const newAddress = response.data[0];
+        const newAddress = response.data;
         dispatch(setUser(user, [...addressList, newAddress], creditCards));
     } catch (error) {
         console.error("Add new address error: ", error);
@@ -53,7 +55,8 @@ export const editAddress = (formData) => async (dispatch, getState) => {
 
     try {
         const response = await axiosInstance.put("/user/address", formData);
-        const updatedAddress = response.data[0];
+        //const updatedAddress = response.data[0];
+        const updatedAddress = response.data;
         const newList = addressList.map(address => address.id === updatedAddress.id ? updatedAddress : address);
         dispatch(setUser(user, newList, creditCards));
     } catch (error) {
@@ -68,7 +71,8 @@ export const deleteAddress = (addressId) => async (dispatch, getState) => {
     try {
          axiosInstance.defaults.headers.common["Authorization"] = token;
         const response = await axiosInstance.delete(`/user/address/${addressId}`);
-        const message = response.data;
+        const message = response.data.message;
+        console.log(message);
         toast.success(message);
 
         const updatedList = addressList.filter(address => address.id !== addressId);
@@ -101,7 +105,8 @@ export const addCard = (formData) => async (dispatch, getState) => {
 
     try {
         const response = await axiosInstance.post("/user/card", formData);
-        const newCard = response.data[0];
+        //const newCard = response.data[0];
+        const newCard = response.data;
         dispatch(setUser(user, addressList, [...creditCards, newCard]));
     } catch (error) {
         console.error("Add new card error: ", error);
@@ -128,7 +133,7 @@ export const deleteCard = (cardId) => async (dispatch, getState) => {
     try {
          axiosInstance.defaults.headers.common["Authorization"] = token;
         const response = await axiosInstance.delete(`/user/card/${cardId}`);
-        const message = response.data;
+        const message = response.data.message;
         toast.success(message);
 
         const updatedList = creditCards.filter(card => card.id !== cardId);
