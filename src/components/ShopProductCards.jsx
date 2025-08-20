@@ -40,7 +40,7 @@ export default function ShopProductCards({categoryId, filters, setFilters, handl
         <section>
             <div className="filters flex flex-col md:flex-row md:justify-between py-6 md:px-[14.5rem] gap-6 items-center">
                 <div className="info">
-                    <h6 className="text-[#737373] text-sm font-bold leading-6">Showing all 12 results</h6>
+                    <h6 className="text-[#737373] text-sm font-bold leading-6">Showing 24 results</h6>
                 </div>
                 <div className="view-buttons flex gap-[0.938rem] px-[0.063rem] items-center">
                     <h6 className="text-sm leading-6 font-bold text-[#737373]">Views:</h6>

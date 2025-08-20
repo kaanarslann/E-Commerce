@@ -70,8 +70,12 @@ export default function SignUp() {
             }, 3000);
         } catch (error) {
             console.error("Error: ", error);
-            console.log(payload);
-            toast.error("An error has occured!");
+            const status = error.response?.status;
+            if(status === 409) {
+                toast.error("User with same email already registered.");
+            } else {
+                toast.error("An error has occured!");
+            }
         }
     };
     

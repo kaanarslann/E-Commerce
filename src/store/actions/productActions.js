@@ -8,6 +8,7 @@ export const SET_FILTER = "SET_FILTER";
 export const SET_PAGE = "SET_PAGE";
 export const CLEAR_PRODUCT_LIST = "CLEAR_PRODUCT_LIST";
 export const SET_PRODUCT_DETAIL = "SET_PRODUCT_DETAIL";
+export const SET_BEST_SELLERS = "SET_BEST_SELLERS";
 
 export const setCategories = (categories) => ({
     type: SET_CATEGORIES,
@@ -17,6 +18,11 @@ export const setCategories = (categories) => ({
 export const setProductList = (productList) => ({
     type: SET_PRODUCT_LIST,
     payload: productList,
+});
+
+export const setBestSellers = (bestSellers) => ({
+    type: SET_BEST_SELLERS,
+    payload: bestSellers,
 });
 
 export const setTotal = (total) => ({

@@ -57,7 +57,10 @@ export default function Product({product}) {
                         </div>
                         <h6 className="text-[#737373] text-sm font-bold leading-6">{product?.rating}</h6>
                     </div>
-                    <h3 className="text-2xl font-bold leading-8 text-[#252B42]">${product?.price}</h3>
+                    <div className="flex gap-4">
+                        <h3 className="text-2xl font-bold leading-8 text-[#BDBDBD] line-through">${product?.price}</h3>
+                        <h3 className="text-2xl font-bold leading-8 text-[#23856D]">${product?.price / 2}</h3>
+                    </div>
                     <div className="product-availability flex gap-1.5 text-sm font-bold leading-6">
                         <h6 className="text-[#737373]">Availability : </h6>
                         <h6 className="text-[#23A6F0]">In Stock ({product?.stock})</h6>

@@ -109,6 +109,10 @@ export const addCard = (formData) => async (dispatch, getState) => {
         const newCard = response.data;
         dispatch(setUser(user, addressList, [...creditCards, newCard]));
     } catch (error) {
+        const status = error.response?.status;
+        if(status === 409) {
+            toast.error("Card with same card no already saved.");
+        }
         console.error("Add new card error: ", error);
     }
 }

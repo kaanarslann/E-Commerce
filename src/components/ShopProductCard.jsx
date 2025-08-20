@@ -12,13 +12,13 @@ export default function ShopProductCard({onClick, product}) {
                 <span className="shop-product-link text-sm font-bold leading-6 text-[#737373]">{product?.description}</span>
                 <div className="shop-product-price flex gap-[0.313rem]">
                     <h5 className="old-price text-base font-bold leading-6 text-[#BDBDBD]">${product?.price}</h5>
-                    <h5 className="new-price text-base font-bold leading-6 text-[#23856D]">${(product?.price - 50.00).toFixed(2)}</h5>
+                    <h5 className="new-price text-base font-bold leading-6 text-[#23856D]">${(product?.price / 2).toFixed(2)}</h5>
                 </div>
                 <div className="colors flex gap-[0.38rem]">
                         <span className="bg-[#23A6F0] rounded-full w-4 h-4"></span>
                         <span className="bg-[#23856D] rounded-full w-4 h-4"></span>
                         <span className="bg-[#E77C40] rounded-full w-4 h-4"></span>
-                        <span className="bg-[#252B42] rounded-full w-4 h-4"></span>
+                        <span className="bg-[#252B42] rounded-full w-4 h-4"></span> 
                     </div>
             </div>
         </section>

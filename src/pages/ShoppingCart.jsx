@@ -10,8 +10,9 @@ export default function ShoppingCart() {
     const shoppingCart = useSelector((state) => state.shoppingCart.cart);
 
     const itemPrice = shoppingCart.reduce((sum, item) => {return item.checked ? (sum + (item.product.price * item.count)) : sum}, 0);
-    const discount = itemPrice > 50 ? 29.99 : 0;
-    const totalPrice = (itemPrice - discount).toFixed(2);
+    const discount = itemPrice / 2;
+    const shipping = itemPrice > 100 ? 0 : 29.99;
+    const totalPrice = (itemPrice + shipping - discount).toFixed(2);
 
     const handleCheckbox = (productId) => {
         dispatch(toggleCheckProduct(productId));
@@ -74,7 +75,7 @@ export default function ShoppingCart() {
                         </div>
                         <div className="summary-shipping flex justify-between">
                             <h3 className="text-[#737373]">Shipping</h3>
-                            <h3 className="font-bold">{shoppingCart ? ("$ 0") : ("$ 29.99")}</h3>
+                            <h3 className="font-bold">$ {shipping}</h3>
                         </div>
                         <div className="summary-discounts flex justify-between mb-3">
                             <h3 className="text-[#737373]">Discount</h3>

@@ -1,5 +1,5 @@
 import axiosInstance from "../../utils/axiosInstance";
-import { setCategories, setProductList, setTotal, setFetchState, setProductDetail } from "../actions/productActions";
+import { setCategories, setProductList, setTotal, setFetchState, setProductDetail, setBestSellers } from "../actions/productActions";
 
 export const getCategories = () => async (dispatch, getState) => {
     const {categories} = getState().product;
@@ -83,3 +83,16 @@ export const getProductDetail = (productId) => async (dispatch) => {
         dispatch(setFetchState("FAILED"));
     }
 };
+
+export const getBestSellers = () => async (dispatch) => {
+    try {
+        dispatch(setFetchState("FETCHING"));
+        const response = await axiosInstance.get("/products/bestsellers");
+        console.log(response.data);
+        dispatch(setBestSellers(response.data));
+        dispatch(setFetchState("FETCHED"));
+    } catch (error) {
+        console.error("Bestseller fetch failed: ", error);
+        dispatch(setFetchState("FAILED"));
+    }
+}

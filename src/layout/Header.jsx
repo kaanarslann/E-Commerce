@@ -84,11 +84,11 @@ export default function Header() {
                             </div>
                             <div className="email flex gap-[0.313rem]">
                                 <Mail />
-                                <span className="text">michelle.rivera@example.com</span>
+                                <span className="text">kaanarslan.work@gmail.com</span>
                             </div>
                         </div>
                         <div className="message p-2.5">
-                            <span className="text">Follow Us and get a chance to win 80% off</span>
+                            <span className="text">Mega Summer Sale! 50% off on every item!</span>
                         </div>
                         <div className="socials flex gap-2.5 p-2.5">
                             <span className="text">Follow Us :</span>
