@@ -22,7 +22,7 @@ export default function Hero() {
                     <button className="w-[13.813rem] h-[3.875rem] bg-[#23A6F0] text-white text-2xl font-bold leading-8 rounded-[0.313rem] hover:cursor-pointer" onClick={handleButton}>SHOP NOW</button>
             </div>
             <div className="hero-img flex justify-center">
-                <img className="hidden md:block md:w-[43.563rem] md:h-[38.688rem] md:absolute md:right-[-0.313rem] md:top-[7.813rem]" src={hero}/>
+                <img className="hidden md:block md:w-[43.563rem] md:h-[38.688rem] md:absolute md:right-[-0.00005rem] md:top-[7.813rem]" src={hero}/>
                 <img className="md:hidden w-full" src={heroMobile}/>
             </div>
         </section>

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export default function AddressForm({address}) {
 
-    const {register, handleSubmit, reset, formState: {isValid}} = useForm({defaultValues: {
+    const {register, handleSubmit, reset, formState: {errors, isValid}} = useForm({defaultValues: {
         title: "",
         name: "",
         surname: "",
@@ -43,21 +43,40 @@ export default function AddressForm({address}) {
                 <form className="flex flex-col gap-2 md:gap-4" onSubmit={handleSubmit(onSubmit)}>
                     <div className="address-title flex flex-col">
                         <label htmlFor="title" className="text-lg leading-6">Title</label>
-                        <input {...register("title", {required: "Please enter a title"})} id="title" name="title" type="text" placeholder="Home" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                        <input {...register("title", {required: "Please enter a title", maxLength: {value: 10, message: "Title cannot be longer than 10 characters."}})} id="title" name="title" type="text" placeholder="Home" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                        {errors.title && (
+                                <p className="w-2xs text-red-500 text-sm py-3">{errors.title.message}</p>
+                            )}
                     </div>
                     <div className="address-fullname flex md:flex-col gap-4">
                         <div className="address-name flex flex-col">
                             <label htmlFor="name" className="text-lg leading-6">Name</label>
-                            <input {...register("name", {required: "Please enter a name"})} id="name" name="name" type="text" placeholder="John" className=" bg-gray-50 border rounded-[5px] w-[9.5rem] h-[2.5rem] md:w-[25rem]"/> 
+                            <input {...register("name", {required: "Please enter a name", minLength: {value: 3, message: "Name must be at least 3 characters long."},
+                                maxLength: {value: 20, message: "Name cannot be longer than 20 characters."}})} id="name" name="name" type="text" placeholder="John" className=" bg-gray-50 border rounded-[5px] w-[9.5rem] h-[2.5rem] md:w-[25rem]"/>
+                            {errors.name && (
+                                <p className="w-2xs text-red-500 text-sm py-3">{errors.name.message}</p>
+                            )}
                         </div>
                         <div className="address-surname flex flex-col">
                             <label htmlFor="surname" className="text-lg leading-6">Surname</label>
-                            <input {...register("surname", {required: "Please enter a surname"})} id="surname" name="surname" type="text" placeholder="Doe" className=" bg-gray-50 border rounded-[5px] w-[9.5rem] h-[2.5rem] md:w-[25rem]"/>
+                            <input {...register("surname", {required: "Please enter a surname", minLength: {value: 3, message: "Name must be at least 3 characters long."},
+                                maxLength: {value: 20, message: "Name cannot be longer than 20 characters."}})} id="surname" name="surname" type="text" placeholder="Doe" className=" bg-gray-50 border rounded-[5px] w-[9.5rem] h-[2.5rem] md:w-[25rem]"/>
+                            {errors.surname && (
+                                <p className="w-2xs text-red-500 text-sm py-3">{errors.surname.message}</p>
+                            )}
                         </div>
                     </div>
                     <div className="address-phone flex flex-col">
                         <label htmlFor="phone" className="text-lg leading-6">Phone</label>
-                        <input {...register("phone", {required: "Please enter a phone number"})} id="phone" name="phone" type="text" placeholder="01234567891" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                        <input {...register("phone", {required: "Please enter a phone number",
+                            pattern: {
+                                value: /^\d{11}$/,
+                                message: "Phone must be a 11-digit number."
+                            }
+                        })} id="phone" name="phone" type="text" placeholder="01234567891" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                        {errors.phone && (
+                                <p className="w-2xs text-red-500 text-sm py-3">{errors.phone.message}</p>
+                            )}
                     </div>
                     <div className="address-city flex flex-col">
                         <label htmlFor="city" className="text-lg leading-6">City</label>
@@ -147,15 +166,24 @@ export default function AddressForm({address}) {
                     </div>
                     <div className="address-district flex flex-col">
                         <label htmlFor="district" className="text-lg leading-6">District</label>
-                        <input {...register("district", {required: "Please enter a district"})} id="district" name="district" type="text" placeholder="Kadıköy" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                        <input {...register("district", {required: "Please enter a district", maxLength: {value: 30, message: "District cannot be longer than 30 characters."}})} id="district" name="district" type="text" placeholder="Kadıköy" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                        {errors.district && (
+                                <p className="w-2xs text-red-500 text-sm py-3">{errors.district.message}</p>
+                            )}
                     </div>
                     <div className="address-neighborhood flex flex-col">
                         <label htmlFor="neighborhood" className="text-lg leading-6">Neighborhood</label>
-                        <input {...register("neighborhood", {required: "Please enter a neighborhood"})} id="neighborhood" name="neighborhood" type="text" placeholder="Haydarpaşa" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                        <input {...register("neighborhood", {required: "Please enter a neighborhood", maxLength: {value: 30, message: "Neighborhood cannot be longer than 30 characters."}})} id="neighborhood" name="neighborhood" type="text" placeholder="Haydarpaşa" className=" bg-gray-50 border rounded-[5px] w-[20rem] h-[2.5rem] md:w-[25rem]"/>
+                        {errors.neighborhood && (
+                                <p className="w-2xs text-red-500 text-sm py-3">{errors.neighborhood.message}</p>
+                            )}
                     </div>
                     <div className="address-address flex flex-col">
                         <label htmlFor="address" className="text-lg leading-6">Address</label>
-                        <textarea {...register("address", {required: "Please enter a address"})} id="address" name="address" type="text" rows="2" placeholder="Address" className=" bg-gray-50 border rounded-[5px] w-[20rem] md:w-[25rem] resize-none"/>
+                        <textarea {...register("address", {required: "Please enter a address", maxLength: {value: 50, message: "Address cannot be longer than 30 characters."}})} id="address" name="address" type="text" rows="2" placeholder="Address" className=" bg-gray-50 border rounded-[5px] w-[20rem] md:w-[25rem] resize-none"/>
+                        {errors.address && (
+                                <p className="w-2xs text-red-500 text-sm py-3">{errors.address.message}</p>
+                            )}
                     </div>
                     <div className="address-button">
                         <button className="bg-[#23A6F0] disabled:bg-blue-300 disabled:hover:cursor-not-allowed text-white p-1.5 rounded w-[7rem] h-[3rem] hover:cursor-pointer text-center flex items-center justify-center md:w-[9rem] md:h-[4rem]" disabled={!isValid}>{address ? "Edit Address" : "Create Address"}</button>
