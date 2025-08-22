@@ -13,7 +13,7 @@ export default function ShopPage() {
     const {categoryId} = useParams();
 
     const [filters, setFilters] = useState({
-        categoryId: "",
+        categoryId: categoryId || "",
         filter: "",
         sort: "price:asc"
     });
@@ -21,8 +21,10 @@ export default function ShopPage() {
     const {page, limit, total} = useSelector(state => state.product);
 
     useEffect(() => {
-        setFilters(prev => ({...prev, categoryId}));
-        dispatch(setPage(1));
+        if(categoryId) {
+            setFilters(prev => ({...prev, categoryId}));
+            dispatch(setPage(1));
+        }
     }, [categoryId, dispatch]);
 
     useEffect(() => {
