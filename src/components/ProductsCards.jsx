@@ -13,10 +13,10 @@ export default function ProductCards() {
     const categories = useSelector((state) => state.product.categories);
 
     useEffect(() => {
-        if(Array.isArray(bestSellers) && bestSellers.length === 0) {
+        if(!bestSellers && bestSellers.length === 0) {
             dispatch(getBestSellers());
         }
-    }, []);
+    }, [bestSellers, dispatch]);
 
     return (
         <section className="product-cards flex flex-col items-center mt-20">
