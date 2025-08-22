@@ -1,10 +1,11 @@
 import productImage from "../assets/productImage.jpg";
+import { getOptimizedProductImg } from "../utils/getOptimizedProductImg";
 
 export default function ProductCard({product}) {
     return (
         <section className="product-card flex flex-col md:w-[11.438rem] md:h-[25rem]">
             <div className="product-image flex justify-center">
-                <img src={product?.images[0].url} className="object-center object-cover w-[183px] h-60"/>
+                <img src={getOptimizedProductImg(product?.images[0].url, 600)} className="object-center object-cover w-[183px] h-60"/>
             </div>
             <div className="product-details flex flex-col items-center gap-2.5 py-[1.563rem]">
                 <h5 className="product-title text-base font-bold leading-6 text-[#252B42] h-8 text-center">{product?.name}</h5>

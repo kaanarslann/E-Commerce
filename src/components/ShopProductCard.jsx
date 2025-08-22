@@ -1,11 +1,12 @@
 import ShopProductImage from "../assets/shopproduct.jpg";
+import { getOptimizedProductImg } from "../utils/getOptimizedProductImg";
 
 export default function ShopProductCard({onClick, product}) {
     
     return (
         <section className="shop-product-card flex flex-col w-[21.75rem] h-[38.438rem] md:w-[15rem] md:h-[30.5rem] hover:cursor-pointer" onClick={onClick}>
             <div className="shop-product-image flex justify-center w-60 h-[300px]">
-                <img src={product?.images[0].url} className="object-center object-cover"/>
+                <img src={getOptimizedProductImg(product?.images[0].url, 400)} className="object-center object-cover"/>
             </div>
             <div className="shop-product-details flex flex-col items-center gap-2.5 py-[1.563rem]">
                 <h5 className="shop-product-title text-base font-bold leading-6 text-[#252B42]">{product?.name}</h5>
