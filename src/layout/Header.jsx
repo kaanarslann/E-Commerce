@@ -52,8 +52,10 @@ export default function Header() {
                         <div className="tools flex gap-6">
                             <User />
                             <Search />
-                            <button onClick={handleToCart} className="hover:cursor-pointer"><ShoppingCart /></button>
-                            <span className="bg-[#23A6F0] rounded-full text-white w-6 text-center">{totalItems}</span>
+                            <div className="relative">
+                                <button onClick={handleToCart} className="hover:cursor-pointer"><ShoppingCart /></button>
+                                <span className="absolute -top-3 -right-2 text-black rounded-full border-2 w-4 h-4 text-xs flex justify-center items-center">{totalItems}</span>
+                            </div>
                             <button onClick={toogleNavbar}><Menu /></button>
                         </div>
                     </div>
@@ -153,7 +155,10 @@ export default function Header() {
                                 <Search />
                                 <Heart />
                                 <div className="dropdown relative inline-block group">
-                                    <ShoppingCart />
+                                    <div className="relative">
+                                        <button className="hover:cursor-pointer" onClick={handleToCart}><ShoppingCart /></button>
+                                        <span className="absolute -top-3 -right-2 bg-[#23A6F0] rounded-full text-white w-4 h-4 text-xs flex justify-center items-center">{totalItems}</span>
+                                    </div>
                                     <div className="dropdown-content absolute hidden group-hover:flex p-5 bg-white shadow-lg shadow-gray-400 z-10 right-0">
                                         <div className="shopping-cart-content flex w-80">
                                             <ul className="flex flex-col gap-3">
@@ -181,7 +186,6 @@ export default function Header() {
                                         </div>
                                     </div>
                                 </div>
-                                <span className="bg-[#23A6F0] rounded-full text-white w-6 text-center">{totalItems}</span>
                             </div>
                         </div>
                     </div>

@@ -13,7 +13,7 @@ export default function ProductCards() {
     const categories = useSelector((state) => state.product.categories);
 
     useEffect(() => {
-        if(fetchState !== "FETCHED") {
+        if(bestSellers.length === 0) {
             dispatch(getBestSellers());
         }
     }, []);

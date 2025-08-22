@@ -63,8 +63,6 @@ export default function SignUp() {
         try {
             const response = await axiosInstance.post("/signup", payload);
             toast.success(response.data.message);
-            console.log(response);
-
             setTimeout(() => {
                 history.goBack();
             }, 3000);

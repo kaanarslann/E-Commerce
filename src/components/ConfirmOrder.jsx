@@ -51,6 +51,10 @@ export default function ConfirmOrder({setStep}) {
                                     <h3 className="font-bold">Details:</h3>
                                     <h3 className="text-gray-600">{item.product.description}</h3>
                                 </div>
+                                <div className="count-details flex gap-2">
+                                    <h3 className="font-bold">Quantity:</h3>
+                                    <h3 className="text-gray-600">{item.count}</h3>
+                                </div>
                             </div>
                         </div>
                     ))}
