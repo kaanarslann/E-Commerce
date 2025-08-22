@@ -36,9 +36,8 @@ export default function ShopPage() {
     }, [filters, categoryId, page]);
 
     useEffect(() => {
-        dispatch(clearProductList());
         dispatch(setPage(1));
-    }, [categoryId, filters]);
+    }, [categoryId]);
 
     const handlePageClick = ({selected}) => {
         const newPage = selected + 1;
