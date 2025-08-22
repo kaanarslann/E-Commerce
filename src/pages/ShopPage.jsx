@@ -21,23 +21,21 @@ export default function ShopPage() {
     const {page, limit, total} = useSelector(state => state.product);
 
     useEffect(() => {
+        setFilters(prev => ({...prev, categoryId}));
+        dispatch(setPage(1));
+    }, [categoryId, dispatch]);
+
+    useEffect(() => {
         const offset = Math.max(0, (page - 1) * limit);
 
         dispatch(clearProductList());
         
         if (filters.categoryId || filters.filter || filters.sort) {
             dispatch(getFilteredProducts({...filters, limit, offset}));
-        }
-        else if (categoryId) {
-            dispatch(getProductsByCategory({categoryId, limit, offset}));
         } else {
             dispatch(getProducts({limit, offset}));
         }
-    }, [filters, categoryId, page]);
-
-    useEffect(() => {
-        dispatch(setPage(1));
-    }, [categoryId]);
+    }, [filters, page, limit, dispatch]);
 
     const handlePageClick = ({selected}) => {
         const newPage = selected + 1;
